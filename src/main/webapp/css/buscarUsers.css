@@ -1,0 +1,105 @@
+.Persona1{
+    height: auto;
+    width: 1300px;
+    text-align: center;
+    align-items: center;
+    background-color: #00913e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 120px;
+    justify-content: center;
+}
+
+.buscar {
+    display: flex;
+    flex-direction: column; /* Alinea el contenido del div verticalmente */
+    justify-content: center; /* Centra el contenido del div horizontalmente */
+    align-items: center; /* Centra el contenido del div verticalmente */
+    padding: 20px;
+}
+
+.buscar input{
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.buscar button{
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    background-color: #ec7f00;
+    color: white;
+    padding: 10px 20px;
+}
+
+.buscar button:hover{
+    background-color:#3c5100;
+    color: black;
+}
+
+table {
+    align-items: center;
+    width: 100%;
+    border-collapse: collapse;
+    width: 1100px;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #3c5100;
+}
+
+td{
+    background-color: white;
+}
+
+.table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn, .edit-btn{
+    border-radius: 4px;
+}
+
+.edit-btn:hover{
+    background-color: #3c5100;
+}
+
+.delete-btn:hover{
+    background-color: #ba0c00;
+}

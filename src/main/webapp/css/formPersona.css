@@ -1,0 +1,110 @@
+.Persona{
+    max-width: 1000px;
+    height: auto;
+    width: auto;
+    text-align: center;
+    align-items: center;
+    background-color: #00913e;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 120px;
+}
+
+.tituloFormUser {
+    text-align: center;
+    color: black;
+}
+
+.form-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.frm{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.frm label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.frm input, 
+.frm select {
+padding: 10px;
+border: 2px solid #ccc;
+border-radius: 5px;
+font-size: 16px;
+width: 250px;
+}
+
+.frm select {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: #fff;
+    cursor: pointer;
+}
+
+.btn{
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.guardar button {
+    background-color: #3c5100;
+    color: white;
+}
+
+.limpiar button {
+    background-color: #3c5100;
+    color: white;
+}
+
+.guardar button:hover {
+    background-color: #ec7f00;
+}
+
+.limpiar button:hover {
+    background-color: #c82333;
+}
+
+.btn-succes{
+    grid-column: span 3;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-succes button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    background-color: #3c5100;
+    color: white;
+}
+
+.btn-succes button:hover{
+    background-color: #ec7f00;
+}
