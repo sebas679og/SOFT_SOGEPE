@@ -6,7 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import DAO.ValidarIngreso;
+import com.sagmade.dao.ValidarIngreso;
 
 class validarIngresoTest {
 	private ValidarIngreso validarIngreso;

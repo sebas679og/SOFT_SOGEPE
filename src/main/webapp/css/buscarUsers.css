@@ -15,7 +15,7 @@
 
 .buscar {
     display: flex;
-    flex-direction: column; /* Alinea el contenido del div verticalmente */
+    flex-wrap: wrap; /* Alinea el contenido del div verticalmente */
     justify-content: center; /* Centra el contenido del div horizontalmente */
     align-items: center; /* Centra el contenido del div verticalmente */
     padding: 20px;

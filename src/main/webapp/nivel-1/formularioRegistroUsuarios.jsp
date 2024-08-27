@@ -31,11 +31,11 @@
                 <img src="../img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form action="">
+        <form action="/SOFT_SOGEPE/insertarpu" method="POST">
             <div class="form-grid">
                 <div class="frm">
                     <label for="tipoDocumento">Tipo de Documento</label>
-                    <select class="select" name="tipoDocumento" id="tipoDocumento">
+                    <select class="select" name="tipoDocumento" id="tipoDocumento" required>
                         <option value="">Seleccione Tipo de Identificacion</option>
                         <option value="1">Cedula de Ciudadania - CC</option>
                         <option value="2">Cedula de Extranjeria - CE</option>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="frm">
                     <label for="numeroIdentificacion">Número de Identificacion</label>
-                    <input type="number" name="numeroIdentificacion" id="numeroIdentificacion">
+                    <input type="number" name="numeroIdentificacion" id="numeroIdentificacion" required>
                 </div>
                 <div class="frm">
                     <label for="primerNombre">Primer Nombre</label>
-                    <input type="text" name="primerNombre" id="primerNombre">
+                    <input type="text" name="primerNombre" id="primerNombre" required>
                 </div>
                 <div class="frm">
                     <label for="segundoNombre">Segundo Nombre</label>
@@ -58,23 +58,23 @@
                 </div>
                 <div class="frm">
                     <label for="primerApellido">Primer Apellido</label>
-                    <input type="text" name="primerApellido" id="primerApellido">
+                    <input type="text" name="primerApellido" id="primerApellido" required>
                 </div>
                 <div class="frm">
                     <label for="segundoApellido">Segundo Apellido</label>
-                    <input type="text" name="segundoApellido" id="segundoApellido">
+                    <input type="text" name="segundoApellido" id="segundoApellido" required>
                 </div>
                 <div class="frm">
                     <label for="telefono">Telefono</label>
-                    <input type="tel" name="telefono" id="telefono">
+                    <input type="tel" name="telefono" id="telefono" required>
                 </div>
                 <div class="frm">
                     <label for="direccion">Dirección</label>
-                    <input type="text" name="direccion" id="direccion">
+                    <input type="text" name="direccion" id="direccion" required>
                 </div>
                 <div class="frm">
                     <label for="genero">Genero</label>
-                    <select class="select" name="genero" id="genero">
+                    <select class="select" name="genero" id="genero" required>
                         <option value="">Seleccione Genero</option>
                         <option value="1">Femenino</option>
                         <option value="2">Masculino</option>
@@ -82,30 +82,35 @@
                 </div>
                 <div class="frm">
                     <label for="rol">Rol de Usuario</label>
-                    <select class="select" name="genero" id="genero">
+                    <select class="select" name="rol" id="rol" required>
                         <option value="">Seleccione Rol</option>
-                        <option value="#">?</option>
-                        <option value="#">?</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Gerente</option>
+                        <option value="4">Funcionario de Producción</option>
+                        <option value="5">Funcionario de Entrega</option>
+                        <option value="6">Funcionario de Bodega</option>
+                        
                     </select>
                 </div>
                 <div class="frm">
                     <label for="username">Usuario</label>
-                    <input type="text" name="username" id="username">
+                    <input type="text" name="username" id="username" required>
                 </div>
                 <div class="frm">
                     <label for="contraseña">Contraseña</label>
-                    <input type="text" name="contraseña" id="contraseña">
+                    <input type="text" name="contraseña" id="contraseña" required>
                 </div>
                 <div class="frm">
                     <label for="correo">Correo</label>
-                    <input type="text" name="correo" id="correo">
+                    <input type="text" name="correo" id="correo" required>
                 </div>
                 <div class="frm">
                     <label for="estadoUsuario">Estado del Usuario</label>
-                    <select class="select" name="estadoUsuario" id="estadoUsuario">
+                    <select class="select" name="estadoUsuario" id="estadoUsuario" required>
                         <option value="">Seleccione Estado</option>
-                        <option value="#">?</option>
-                        <option value="#">?</option>
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                        <option value="3">Suspendido</option>
                     </select>
                 </div>
                 <div class="btn">

@@ -9,14 +9,4 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>ValidarServlet</display-name>
-    <servlet-name>ValidarServlet</servlet-name>
-    <servlet-class>Controller.ValidarServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ValidarServlet</servlet-name>
-    <url-pattern>/ValidarServlet</url-pattern>
-  </servlet-mapping>
 </web-app>

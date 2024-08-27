@@ -1,6 +1,6 @@
 package Pruebas;
 
-import Config.Conexion;
+import com.sagmade.config.Conexion;
 
 public class PruebaConexionbd {
 

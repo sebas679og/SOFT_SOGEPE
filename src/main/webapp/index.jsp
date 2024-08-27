@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="formulario">
-        <form action="ValidarServlet" method="POST">
+        <form action="Validar" method="post">
             <h2>INICIO DE SESIÓN</h2>
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <select class="select_user" name="tipoUsuario" id="tipoUsuario">

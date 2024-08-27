@@ -1,6 +1,6 @@
 package Pruebas;
 
-import DAO.ValidarIngreso;
+import com.sagmade.dao.ValidarIngreso;
 
 public class PruebaValidarDao {
 
