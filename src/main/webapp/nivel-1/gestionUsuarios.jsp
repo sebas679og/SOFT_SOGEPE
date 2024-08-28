@@ -38,7 +38,7 @@
                     </a>
                 </div>
                 <div> 
-                    <a href="busquedaUsuarios.jsp" class="btn-icon-u">
+                    <a href="/SOFT_SOGEPE/listUsers" class="btn-icon-u">
                         <img src="../img/buscando.png" height="120px" alt="Usuarios">
                         <span>Consultar Usuario</span>
                     </a>

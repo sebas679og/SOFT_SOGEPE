@@ -98,7 +98,7 @@
                 </div>
                 <div class="frm">
                     <label for="contraseña">Contraseña</label>
-                    <input type="text" name="contraseña" id="contraseña" required>
+                    <input type="password" name="contraseña" id="contraseña" required>
                 </div>
                 <div class="frm">
                     <label for="correo">Correo</label>

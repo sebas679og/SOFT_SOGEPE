@@ -10,7 +10,7 @@ import com.sagmade.config.Conexion;
 public class ValidarIngreso {
 	private Connection connection;
     
-    public ValidarIngreso() {
+    public ValidarIngreso() throws SQLException {
     this.connection = Conexion.getConnection();
     }
     

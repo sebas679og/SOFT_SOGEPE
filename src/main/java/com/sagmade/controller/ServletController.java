@@ -8,10 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import com.sagmade.dao.ModuloUsuarios;
+
 import com.sagmade.dao.ValidarIngreso;
-import com.sagmade.model.T_Personas;
-import com.sagmade.model.T_Usuarios;
 
 @WebServlet({"/ServletController", "/Validar"})
 public class ServletController extends HttpServlet {
@@ -52,7 +50,8 @@ String actionUsers = request.getServletPath();
 	        String tipoUsuario = request.getParameter("tipoUsuario");
 
 	        ValidarIngreso validarIngreso = new ValidarIngreso();
-
+	        
+	        // Validar el usuario. Asegúrate de que `validarUsuario` maneje SQLException internamente
 	        boolean esValido = validarIngreso.validarUsuario(username, contraseña, tipoUsuario);
 
 	        if (esValido) {
@@ -77,10 +76,15 @@ String actionUsers = request.getServletPath();
 	            request.setAttribute("errorMessage", "Credenciales incorrectas");
 	            request.getRequestDispatcher("index.jsp").forward(request, response);
 	        }
+	    } catch (IOException e) {
+	        e.printStackTrace(); // Agrega un mensaje específico o maneja la excepción adecuadamente
+	        request.setAttribute("errorMessage", "Error de entrada/salida.");
+	        request.getRequestDispatcher("index.jsp").forward(request, response);
 	    } catch (Exception e) {
-	        e.printStackTrace(); // O maneja la excepción de manera adecuada
-	        request.setAttribute("errorMessage", "Ocurrió un error durante la validación.");
+	        e.printStackTrace(); // Agrega un mensaje específico o maneja la excepción adecuadamente
+	        request.setAttribute("errorMessage", "Ocurrió un error inesperado.");
 	        request.getRequestDispatcher("index.jsp").forward(request, response);
 	    }
 	}
+
 }

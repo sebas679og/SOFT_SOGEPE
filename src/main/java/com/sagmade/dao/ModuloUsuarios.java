@@ -2,9 +2,13 @@ package com.sagmade.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sagmade.config.Conexion;
+import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Personas;
 import com.sagmade.model.T_Usuarios;
 
@@ -18,6 +22,72 @@ public class ModuloUsuarios {
 	
 	private static final String INSERTAR_USUARIO = ("INSERT INTO usuarios (username, contraseña, correo, estadoUsuario, rol, persona) "
 			+ "VALUES ( ?, ?, ?, ?, ?, ?)");
+	
+	private static final String LISTAR_USUARIOS = ("SELECT td.sigla AS tipo_documentos, p.numeroIdentificacion, r.rol AS roles, eu.estado AS estadoUsuario "
+			+ "FROM personas p "
+			+ "JOIN usuarios u ON p.idPersonas = u.persona "
+			+ "JOIN roles r ON u.rol = r.idRoles "
+			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
+			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios;");
+	
+	public List<ListarUsuarios> listAllUsers() throws SQLException {
+	    List<ListarUsuarios> userList = new ArrayList<>();
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        conn = Conexion.getConnection();
+	        pstmt = conn.prepareStatement(LISTAR_USUARIOS);
+	        rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            String tipoDocumento = rs.getString("tipo_documentos");
+	            int numeroIdentificacion = rs.getInt("numeroIdentificacion");
+	            String rol = rs.getString("roles");
+	            String estadoUsuario = rs.getString("estadoUsuario");
+
+	            ListarUsuarios user = new ListarUsuarios(tipoDocumento, numeroIdentificacion, rol, estadoUsuario);
+	            userList.add(user);
+	            
+	            // Agregar impresión para depuración
+	            System.out.println("User: " + tipoDocumento + ", " + numeroIdentificacion + ", " + rol + ", " + estadoUsuario);
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("SQL Exception: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;
+	    } finally {
+	        // Cerrar recursos en el orden inverso al de apertura
+	        if (rs != null) {
+	            try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                System.err.println("Error al cerrar ResultSet: " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	        if (pstmt != null) {
+	            try {
+	                pstmt.close();
+	            } catch (SQLException e) {
+	                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                System.err.println("Error al cerrar Connection: " + e.getMessage());
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+	    return userList;
+	}
+
+
 	
 	public void insertarUsuario(T_Personas tpersonas, T_Usuarios tusuarios) throws SQLException{
 		Connection conn = null;

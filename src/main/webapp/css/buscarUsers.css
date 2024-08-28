@@ -50,15 +50,19 @@
 table {
     align-items: center;
     width: 100%;
-    border-collapse: collapse;
-    width: 1100px;
-    margin-top: 20px;
+    border-collapse: separate; /* Asegúrate de que los bordes no estén colapsados */
+    border-spacing: 0; /* Elimina el espacio entre celdas */
+    border-radius: 5px; /* Ajusta el valor según sea necesario */
+    overflow: hidden; /* Para que el contenido no se desborde del radio del borde */
+    border-style: 1px;
 }
 
 th, td {
-    border: 1px solid black;
-    padding: 8px;
+    padding: 1px;
     text-align: center;
+    border: .5px solid #000000; /* Opcional: define un borde para las celdas */
+    padding: 8px; /* Opcional: agrega espacio dentro de las celdas */
+    border-style: 1px;
 }
 
 th {

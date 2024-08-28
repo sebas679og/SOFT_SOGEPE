@@ -2,6 +2,8 @@ package Pruebas;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,7 @@ class validarIngresoTest {
 	private ValidarIngreso validarIngreso;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SQLException {
         // Inicializa la instancia de ValidarIngreso antes de cada prueba
         validarIngreso = new ValidarIngreso();
     }

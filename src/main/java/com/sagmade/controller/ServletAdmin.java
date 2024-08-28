@@ -7,12 +7,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.sagmade.dao.ModuloUsuarios;
+import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Personas;
 import com.sagmade.model.T_Usuarios;
 
-@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu"})
+@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/listUsers"})
 public class ServletAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,6 +40,9 @@ public class ServletAdmin extends HttpServlet {
 		switch (actionUsers) {
 		case "/insertarpu": 
 			insertarUsuario(request, response);
+			break;
+		case "/listUsers":
+			listarUsuariost (request, response);
 			break;
 		
 		default:
@@ -71,12 +76,28 @@ public class ServletAdmin extends HttpServlet {
 
         try {
             moduloUsuarios.insertarUsuario(tpersonas, tusuarios);
-            response.sendRedirect("nivel-1/busquedaUsuarios.jsp");
+            response.sendRedirect("/SOFT_SOGEPE/listUsers");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error al cargar datos");
             System.out.println(e.getMessage());
         }
     }
+	
+	private void listarUsuariost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
+	    
+	    try {
+	        List<ListarUsuarios> userList = moduloUsuarios.listAllUsers();
+	        request.setAttribute("userList", userList);
+	        request.getRequestDispatcher("/nivel-1/busquedaUsuarios.jsp").forward(request, response);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        request.setAttribute("errorMessage", "Error al recuperar la lista de usuarios. Por favor, intente nuevamente.");
+	        request.getRequestDispatcher("nivel-1/errorPage.jsp").forward(request, response);
+	    }
+	}
 
 }
+
+
