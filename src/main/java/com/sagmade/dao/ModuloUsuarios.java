@@ -30,6 +30,14 @@ public class ModuloUsuarios {
 			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
 			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios;");
 	
+	private static final String LISTAR_USUARIO = ("SELECT td.sigla AS tipo_documentos, p.numeroIdentificacion, r.rol AS roles, eu.estado AS estadoUsuario "
+			+ "FROM personas p "
+			+ "JOIN usuarios u ON p.idPersonas = u.persona "
+			+ "JOIN roles r ON u.rol = r.idRoles "
+			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
+			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios "
+			+ "WHERE p.numeroIdentificacion = ?;");
+	
 	public List<ListarUsuarios> listAllUsers() throws SQLException {
 	    List<ListarUsuarios> userList = new ArrayList<>();
 	    Connection conn = null;
@@ -164,4 +172,29 @@ public class ModuloUsuarios {
 			}
 		}
 	}
+	
+	public List<ListarUsuarios> findUsersByNumeroIdentificacion(int numeroIdentificacion) throws SQLException {
+	    List<ListarUsuarios> userList = new ArrayList<>();
+	    try (Connection conn = Conexion.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(LISTAR_USUARIO)) {
+	        stmt.setInt(1, numeroIdentificacion);  // Asegúrate de usar el valor de número de identificación
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                String tipoDocumento = rs.getString("tipo_documentos");
+	                int numIdentificacion = rs.getInt("numeroIdentificacion");
+	                String rol = rs.getString("roles");
+	                String estadoUsuario = rs.getString("estadoUsuario");
+
+	                ListarUsuarios user = new ListarUsuarios(tipoDocumento, numIdentificacion, rol, estadoUsuario);
+	                userList.add(user);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("SQL Exception: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;
+	    }
+	    return userList;
+	}
+
 }

@@ -14,7 +14,7 @@ import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Personas;
 import com.sagmade.model.T_Usuarios;
 
-@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/listUsers"})
+@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/buscarUsuarios"})
 public class ServletAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,10 +41,9 @@ public class ServletAdmin extends HttpServlet {
 		case "/insertarpu": 
 			insertarUsuario(request, response);
 			break;
-		case "/listUsers":
-			listarUsuariost (request, response);
-			break;
-		
+		case "/buscarUsuarios":
+            buscarUsuarios(request, response);
+            break;
 		default:
 			System.out.println("No se reconoce la acción enviada por el usuario!!");
 		}
@@ -76,7 +75,7 @@ public class ServletAdmin extends HttpServlet {
 
         try {
             moduloUsuarios.insertarUsuario(tpersonas, tusuarios);
-            response.sendRedirect("/SOFT_SOGEPE/listUsers");
+            response.sendRedirect("/SOFT_SOGEPE/buscarUsuarios");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error al cargar datos");
@@ -84,19 +83,45 @@ public class ServletAdmin extends HttpServlet {
         }
     }
 	
-	private void listarUsuariost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
+	private void buscarUsuarios(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String numeroIdentificacionStr = request.getParameter("search");
+	    int numeroIdentificacion = 0;
 	    
+	    if (numeroIdentificacionStr != null && !numeroIdentificacionStr.trim().isEmpty()) {
+	        try {
+	            numeroIdentificacion = Integer.parseInt(numeroIdentificacionStr);
+	        } catch (NumberFormatException e) {
+	            request.setAttribute("errorMessage", "El número de identificación debe ser un número.");
+	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+	            return;
+	        }
+	    }
+
+	    ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
 	    try {
-	        List<ListarUsuarios> userList = moduloUsuarios.listAllUsers();
+	        List<ListarUsuarios> userList;
+	        
+	        // Si 'numeroIdentificacion' es mayor que 0, busca por número de identificación
+	        if (numeroIdentificacion > 0) {
+	            userList = moduloUsuarios.findUsersByNumeroIdentificacion(numeroIdentificacion);
+	        } else {
+	            // Si 'numeroIdentificacion' no es proporcionado, lista todos los usuarios
+	            userList = moduloUsuarios.listAllUsers();
+	        }
+
+	        // Establecer la lista de usuarios como atributo en la solicitud
 	        request.setAttribute("userList", userList);
-	        request.getRequestDispatcher("/nivel-1/busquedaUsuarios.jsp").forward(request, response);
+	        // Reenviar la solicitud a la página de lista de usuarios
+	        request.getRequestDispatcher("/nivel-1/listUsers.jsp").forward(request, response);
+	        
 	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        // En caso de error, establece un mensaje de error y reenvía a la página de error
 	        request.setAttribute("errorMessage", "Error al recuperar la lista de usuarios. Por favor, intente nuevamente.");
-	        request.getRequestDispatcher("nivel-1/errorPage.jsp").forward(request, response);
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	    }
 	}
+
 
 }
 

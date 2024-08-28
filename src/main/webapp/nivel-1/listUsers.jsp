@@ -6,12 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuarios</title>
+    <title>Consulta de Usuarios</title>
     <link rel="icon" href="${pageContext.request.contextPath}/img/iconoPestaña.jpg" type="image/jpeg">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Menu.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/buscarUsers.css">
-
 </head>
 <body>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
@@ -33,7 +32,7 @@
                 <img src="${pageContext.request.contextPath}/img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form class="buscar">
+        <form action="${pageContext.request.contextPath}/buscarUsuarios" method="get" class="buscar">
             <input type="text" id="search" name="search" placeholder="Buscar...">
             <button type="submit">Buscar</button>
         </form>
