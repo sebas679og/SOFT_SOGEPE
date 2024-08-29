@@ -1,6 +1,7 @@
 package com.sagmade.model;
 
 public class ListarUsuarios {
+	private int idUsuarios;
 	private String tipoDocumento;
     private int numeroIdentificacion;
     private String rol;
@@ -11,12 +12,21 @@ public class ListarUsuarios {
 		super();
 	}
 
-	public ListarUsuarios(String tipoDocumento, int numeroIdentificacion, String rol, String estadoUsuario) {
+	public ListarUsuarios(int idUsuarios, String tipoDocumento, int numeroIdentificacion, String rol, String estadoUsuario) {
 		super();
+		this.idUsuarios = idUsuarios;
 		this.tipoDocumento = tipoDocumento;
 		this.numeroIdentificacion = numeroIdentificacion;
 		this.rol = rol;
 		this.estadoUsuario = estadoUsuario;
+	}
+	
+	public int getIdUsuarios() {
+		return idUsuarios;
+	}
+	
+	public void setIdUsuarios(int id) {
+		this.idUsuarios = id;
 	}
 
 	public String getTipoDocumento() {

@@ -8,89 +8,101 @@ public class T_Usuarios {
     protected int estadoUsuario;
     protected int rol;
     protected int persona;
-
-    public T_Usuarios() {
-    	super();
-    }
-
-    //Constructores con sobrecarga de Metodos
-    public T_Usuarios(int idUsuarios, String username, String contraseña, 
-            String correo, int estadoUsuario, int rol, int persona) {
-        this.idUsuarios = idUsuarios;
-        this.username = username;
-        this.contraseña = contraseña;
-        this.correo = correo;
-        this.estadoUsuario = estadoUsuario;
-        this.rol = rol;
-        this.persona = persona;
-    }
-
-    public T_Usuarios(String username, String contraseña, String correo, 
-            int estadoUsuario, int rol, int persona) {
-        this.username = username;
-        this.contraseña = contraseña;
-        this.correo = correo;
-        this.estadoUsuario = estadoUsuario;
-        this.rol = rol;
-        this.persona = persona;
-    }
     
-    //Generacion de Setters y Getters
+	public T_Usuarios() {
+		super();
+	}
+	
+	public T_Usuarios(int idUsuarios, String username, String contraseña, String correo, int estadoUsuario, int rol,
+			int persona) {
+		super();
+		this.idUsuarios = idUsuarios;
+		this.username = username;
+		this.contraseña = contraseña;
+		this.correo = correo;
+		this.estadoUsuario = estadoUsuario;
+		this.rol = rol;
+		this.persona = persona;
+	}
 
-    public int getIdUsuarios() {
-        return idUsuarios;
-    }
 
-    public void setIdUsuarios(int idUsuarios) {
-        this.idUsuarios = idUsuarios;
-    }
+	public T_Usuarios(String username, String contraseña, String correo, int estadoUsuario, int rol, int persona) {
+		super();
+		this.username = username;
+		this.contraseña = contraseña;
+		this.correo = correo;
+		this.estadoUsuario = estadoUsuario;
+		this.rol = rol;
+		this.persona = persona;
+	}
+	
+	
 
-    public String getUsername() {
-        return username;
-    }
+	public T_Usuarios(int idUsuarios, String username, String contraseña, String correo, int estadoUsuario, int rol) {
+		super();
+		this.idUsuarios = idUsuarios;
+		this.username = username;
+		this.contraseña = contraseña;
+		this.correo = correo;
+		this.estadoUsuario = estadoUsuario;
+		this.rol = rol;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public int getIdUsuarios() {
+		return idUsuarios;
+	}
 
-    public String getContraseña() {
-        return contraseña;
-    }
+	public void setIdUsuarios(int idUsuarios) {
+		this.idUsuarios = idUsuarios;
+	}
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public String getCorreo() {
-        return correo;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+	public String getContraseña() {
+		return contraseña;
+	}
 
-    public int getEstadoUsuario() {
-        return estadoUsuario;
-    }
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
 
-    public void setEstadoUsuario(int estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
-    }
+	public String getCorreo() {
+		return correo;
+	}
 
-    public int getRol() {
-        return rol;
-    }
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
 
-    public void setRol(int rol) {
-        this.rol = rol;
-    }
+	public int getEstadoUsuario() {
+		return estadoUsuario;
+	}
 
-    public int getPersona() {
-        return persona;
-    }
+	public void setEstadoUsuario(int estadoUsuario) {
+		this.estadoUsuario = estadoUsuario;
+	}
 
-    public void setPersona(int persona) {
-        this.persona = persona;
-    }
+	public int getRol() {
+		return rol;
+	}
 
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
+
+	public int getPersona() {
+		return persona;
+	}
+
+	public void setPersona(int persona) {
+		this.persona = persona;
+	}
+    
+    
 }

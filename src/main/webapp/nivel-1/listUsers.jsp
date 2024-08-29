@@ -57,7 +57,11 @@
                                     <td>${user.rol}</td>
                                     <td>${user.estadoUsuario}</td>
                                     <td>
-                                        <button class="action-btn edit-btn">Actualizar</button>
+                                        <!-- Botón "Actualizar" con evento onclick para redireccionar -->
+				                        <button class="action-btn edit-btn" 
+				                                onclick="window.location.href='${pageContext.request.contextPath}/nivel-1/actualizarUsuario.jsp?id=${user.idUsuarios}'">
+				                            Actualizar
+				                        </button>
                                         <button class="action-btn delete-btn">Eliminar</button>
                                     </td>
                                 </tr>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regsitro Usuario</title>
+    <title>Registro Usuario</title>
     <link rel="icon" href="../img/iconoPestaña.jpg" type="image/jpeg">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/Menu.css">
@@ -36,7 +36,7 @@
                 <div class="frm">
                     <label for="tipoDocumento">Tipo de Documento</label>
                     <select class="select" name="tipoDocumento" id="tipoDocumento" required>
-                        <option value="">Seleccione Tipo de Identificacion</option>
+                        <option value="" disabled selected>Seleccione Tipo de Identificacion</option>
                         <option value="1">Cedula de Ciudadania - CC</option>
                         <option value="2">Cedula de Extranjeria - CE</option>
                         <option value="3">Permiso Especial de Permanencia - PEP</option>
@@ -83,7 +83,7 @@
                 <div class="frm">
                     <label for="rol">Rol de Usuario</label>
                     <select class="select" name="rol" id="rol" required>
-                        <option value="">Seleccione Rol</option>
+                        <option value="" disabled selected>Seleccione Rol</option>
                         <option value="1">Administrador</option>
                         <option value="2">Gerente</option>
                         <option value="4">Funcionario de Producción</option>
@@ -102,12 +102,12 @@
                 </div>
                 <div class="frm">
                     <label for="correo">Correo</label>
-                    <input type="text" name="correo" id="correo" required>
+                    <input type="email" name="correo" id="correo" required>
                 </div>
                 <div class="frm">
                     <label for="estadoUsuario">Estado del Usuario</label>
                     <select class="select" name="estadoUsuario" id="estadoUsuario" required>
-                        <option value="">Seleccione Estado</option>
+                        <option value="" disabled selected>Seleccione Estado</option>
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
                         <option value="3">Suspendido</option>
