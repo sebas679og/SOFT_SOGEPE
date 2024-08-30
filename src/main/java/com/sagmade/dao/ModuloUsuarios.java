@@ -18,19 +18,22 @@ public class ModuloUsuarios {
 		super();
 	}
 	
-	private static final String INSERTAR_PERSONA = ("INSERT INTO personas (tipoDocumento, numeroIdentificacion, primerNombre, segundoNombre, primerApellido, 			segundoApellido, telefono, direccion, genero) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	private static final String INSERTAR_PERSONA = ("INSERT INTO personas (tipoDocumento, numeroIdentificacion, primerNombre, segundoNombre, "
+			+ "primerApellido, segundoApellido, telefono, direccion, genero) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	
 	private static final String INSERTAR_USUARIO = ("INSERT INTO usuarios (username, contraseña, correo, estadoUsuario, rol, persona) "
 			+ "VALUES ( ?, ?, ?, ?, ?, ?)");
 	
-	private static final String LISTAR_USUARIOS = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, p.numeroIdentificacion, r.rol AS roles, eu.estado AS estadoUsuario "
+	private static final String LISTAR_USUARIOS = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, "
+			+ "p.numeroIdentificacion, r.rol AS roles, eu.estado AS estadoUsuario, p.idPersonas AS id_personas, u.username AS username  "
 			+ "FROM personas p "
 			+ "JOIN usuarios u ON p.idPersonas = u.persona "
 			+ "JOIN roles r ON u.rol = r.idRoles "
 			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
 			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios;");
 	
-	private static final String LISTAR_USUARIO = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, p.numeroIdentificacion, r.rol AS roles, eu.estado AS estadoUsuario "
+	private static final String LISTAR_USUARIO = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, p.numeroIdentificacion, "
+			+ "r.rol AS roles, eu.estado AS estadoUsuario, p.idPersonas AS id_personas, u.username AS username "
 			+ "FROM personas p "
 			+ "JOIN usuarios u ON p.idPersonas = u.persona "
 			+ "JOIN roles r ON u.rol = r.idRoles "
@@ -43,6 +46,28 @@ public class ModuloUsuarios {
 	
 	private static final String ACTUALIZAR_USUARIO = ("UPDATE usuarios SET username = ?, contraseña = ?, correo = ?, "
 			+ "estadoUsuario = ?, rol = ? WHERE idUsuarios = ?");
+	
+	private static final String  ELIMINAR_USUARIO = ("DELETE FROM usuarios WHERE idUsuarios = ?");
+	
+	private static final String ELIMINAR_PERSONA = ("DELETE FROM personas WHERE idPersonas = ?");
+	
+	public void eliminarUsuario(int idUsuarios, int idPersonas) throws SQLException{
+		try (Connection conn = Conexion.getConnection();
+				PreparedStatement pstmtUsuarios = conn.prepareStatement(ELIMINAR_USUARIO);
+				PreparedStatement pstmtPersonas = conn.prepareStatement(ELIMINAR_PERSONA)){
+			
+			//Eliminar de la tabla usuarios
+			pstmtUsuarios.setInt(1, idUsuarios);
+			pstmtUsuarios.executeUpdate();
+			
+			//Eliminar de la tabla personas
+			pstmtPersonas.setInt(1, idPersonas);
+			pstmtPersonas.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	
 	public void actualizarUsuario(T_Personas tpersona, T_Usuarios tusuario) throws SQLException {
 	    Connection conn = null;
@@ -148,12 +173,14 @@ public class ModuloUsuarios {
 	            int numeroIdentificacion = rs.getInt("numeroIdentificacion");
 	            String rol = rs.getString("roles");
 	            String estadoUsuario = rs.getString("estadoUsuario");
+	            int idPersonas = rs.getInt("id_personas");
+	            String username = rs.getString("username");
 
-	            ListarUsuarios user = new ListarUsuarios(idUsuarios, tipoDocumento, numeroIdentificacion, rol, estadoUsuario);
+	            ListarUsuarios user = new ListarUsuarios(idUsuarios, tipoDocumento, numeroIdentificacion, rol, estadoUsuario, idPersonas, username);
 	            userList.add(user);
 	            
 	            // Agregar impresión para depuración
-	            System.out.println("User: " + idUsuarios + ", " + tipoDocumento + ", " + numeroIdentificacion + ", " + rol + ", " + estadoUsuario);
+	            System.out.println("User: " + idUsuarios + ", " + tipoDocumento + ", " + numeroIdentificacion + ", " + rol + ", " + estadoUsuario + ", " + idPersonas);
 	        }
 	    } catch (SQLException e) {
 	        System.err.println("SQL Exception: " + e.getMessage());
@@ -279,8 +306,10 @@ public class ModuloUsuarios {
 	                int numIdentificacion = rs.getInt("numeroIdentificacion");
 	                String rol = rs.getString("roles");
 	                String estadoUsuario = rs.getString("estadoUsuario");
+	                int idPersonas = rs.getInt("id_personas");
+	                String username = rs.getString("username");
 
-	                ListarUsuarios user = new ListarUsuarios(idUsuarios, tipoDocumento, numIdentificacion, rol, estadoUsuario);
+	                ListarUsuarios user = new ListarUsuarios(idUsuarios, tipoDocumento, numIdentificacion, rol, estadoUsuario, idPersonas, username);
 	                userList.add(user);
 	            }
 	        }

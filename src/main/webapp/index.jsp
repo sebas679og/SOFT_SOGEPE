@@ -14,7 +14,7 @@
             <h2>INICIO DE SESIÓN</h2>
             <label for="tipoUsuario">Tipo de Usuario:</label>
             <select class="select_user" name="tipoUsuario" id="tipoUsuario">
-                <option value="Seleccionar Tipo de Usuario">Seleccionar Tipo de Usuario</option>
+                <option value="" disabled selected>Seleccionar Tipo de Usuario</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Gerente">Gerente</option>
                 <option value="Funcionario de Bodega">Funcionario de Bodega</option>

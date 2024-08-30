@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.http.HttpResponse.ResponseInfo;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Personas;
 import com.sagmade.model.T_Usuarios;
 
-@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/buscarUsuarios", "/actualizarUsuario"})
+@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/buscarUsuarios", "/actualizarUsuario", "/eliminarUsuario"})
 public class ServletAdmin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,11 +48,30 @@ public class ServletAdmin extends HttpServlet {
 		case "/actualizarUsuario":
 			actualizarUsuario(request, response);
 			break;
+		case "/eliminarUsuario":
+			eliminarUsuario(request, response);
 		default:
 			System.out.println("No se reconoce la acción enviada por el usuario!!");
 		}
 	}
 	
+	private void eliminarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		int idUsuarios = Integer.parseInt(request.getParameter("idUsuarios"));
+        int idPersonas = Integer.parseInt(request.getParameter("idPersonas"));
+        ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
+        
+        try {
+			moduloUsuarios.eliminarUsuario(idUsuarios, idPersonas);
+			response.sendRedirect("buscarUsuarios");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error al Eliminar informacion: " + e.getMessage());
+			request.setAttribute("errorMessage", "Error al Eliminar el usuario.");
+			request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+		}
+		
+	}
+
 	private void insertarUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Recuperar datos del formulario
         int tipoDocumento = Integer.parseInt(request.getParameter("tipoDocumento"));

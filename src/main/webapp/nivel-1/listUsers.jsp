@@ -42,6 +42,7 @@
                     <tr>
                         <th>Tipo de Documento</th>
                         <th>Número de Identificación</th>
+                        <th>Usuario</th>
                         <th>Rol</th>
                         <th>Estado del Usuario</th>
                         <th>Acciones</th>
@@ -54,6 +55,7 @@
                                 <tr>
                                     <td>${user.tipoDocumento}</td>
                                     <td>${user.numeroIdentificacion}</td>
+                                    <td>${user.username}</td>
                                     <td>${user.rol}</td>
                                     <td>${user.estadoUsuario}</td>
                                     <td>
@@ -62,7 +64,10 @@
 				                                onclick="window.location.href='${pageContext.request.contextPath}/nivel-1/actualizarUsuario.jsp?id=${user.idUsuarios}'">
 				                            Actualizar
 				                        </button>
-                                        <button class="action-btn delete-btn">Eliminar</button>
+                                        <!-- Botón "Eliminar" con evento onclick para confirmar la eliminación -->
+    									<button class="action-btn delete-btn" 
+    										onclick="confirmarEliminacion(${user.idUsuarios}, ${user.idPersonas})">Eliminar
+    									</button>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -77,5 +82,14 @@
             </table>
         </div>
     </div>
+    
+    <script>
+		function confirmarEliminacion(idUsuarios, idPersonas) {
+		    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+		        window.location.href = '${pageContext.request.contextPath}/eliminarUsuario?idUsuarios=' + idUsuarios + '&idPersonas=' + idPersonas;
+		    }
+		}
+</script>
+    
 </body>
 </html>
