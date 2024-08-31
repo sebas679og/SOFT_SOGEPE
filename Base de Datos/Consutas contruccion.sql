@@ -1,9 +1,3 @@
-use loginregistro;
-
-truncate table usuarios;
-
-select * from usuarios;
-
 use sogepe;
 
 select * from usuarios;
@@ -48,6 +42,7 @@ SELECT u.idUsuarios AS id_usuarios,
        td.sigla AS tipo_documentos, 
        p.numeroIdentificacion, 
        r.rol AS roles, 
+       p.idPersonas AS id_personas,
        eu.estado AS estadoUsuario
 FROM personas p 
 JOIN usuarios u ON p.idPersonas = u.persona 

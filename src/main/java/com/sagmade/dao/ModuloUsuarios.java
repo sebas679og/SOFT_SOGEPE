@@ -180,7 +180,8 @@ public class ModuloUsuarios {
 	            userList.add(user);
 	            
 	            // Agregar impresión para depuración
-	            System.out.println("User: " + idUsuarios + ", " + tipoDocumento + ", " + numeroIdentificacion + ", " + rol + ", " + estadoUsuario + ", " + idPersonas);
+	            System.out.println("User: " + idUsuarios + ", " + tipoDocumento + ", " + numeroIdentificacion + ", " + rol + ", "
+	            + estadoUsuario + ", " + idPersonas + ", " + username);
 	        }
 	    } catch (SQLException e) {
 	        System.err.println("SQL Exception: " + e.getMessage());

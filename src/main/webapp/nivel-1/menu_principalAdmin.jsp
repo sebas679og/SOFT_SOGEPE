@@ -38,7 +38,7 @@
                 </a>
             </div>
             <div>
-                <a href="#" class="btn-icon">
+                <a href="gestionInventario.jsp" class="btn-icon">
                     <img src="../img/inventario.png" height="120px" alt="Inventario">
                     <span>Gestion de Inventario</span>
                 </a>

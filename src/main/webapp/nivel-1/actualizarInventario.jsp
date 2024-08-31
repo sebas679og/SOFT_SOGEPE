@@ -1,0 +1,69 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es-co">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Inventario</title>
+    <link rel="icon" href="../img/iconoPestaña.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/Menu.css">
+    <link rel="stylesheet" href="../css/formPersona.css">
+</head>
+<body>
+    <header class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="header">
+            <a href="menu_principalAdmin.jsp">
+                <img src="../img/Letras.png" alt="Platanitos de La Esmeralda" width="200px" class="logo">
+            </a>
+        </div>
+        <div class="icons">
+            <img src="../img/user.png" alt="User" height="30px" class="icon">
+            <img src="../img/menu.png" alt="menu" height="30px" class="icon">
+        </div>
+    </header>
+    <div class="Persona">
+        <h1 class="tituloFormUser">Actualizar Inventario</h1>
+        <div class="cerrar">
+            <a href="gestionInventario.jsp">
+                <img src="../img/volver.png" alt="regresar" height="40px">
+            </a>
+        </div>
+        <form action="">
+            <div class="form-grid">
+                <div class="frm">
+                    <label for="codigoInventario">Codigo de Invenatrio</label>
+                    <input type="text" name="codigoInventario" id="codigoInventario" disabled>
+                </div>
+                <div class="frm">
+                    <label for="fechaIngreso">Fecha Ingreso</label>
+                    <input type="datetime-local" name="fechaIngreso" id="fechaIngreso">
+                </div>
+                <div class="frm">
+                    <label for="categoria">Categoria</label>
+                    <select name="categoria" id="categoria">
+                        <option value="" disabled selected>Seleccione Categoria</option>
+                        <option value="">valores</option>
+                    </select>
+                </div>
+                <div class="frm">
+                    <label for="producto">Producto</label>
+                    <select name="producto" id="producto">
+                        <option value="" disabled selected>Seleccione Producto</option>
+                        <option value="">valores</option>
+                    </select>
+                </div>
+                <div class="frm">
+                    <label for="cantidda">Cantidda</label>
+                    <input type="number" name="cantidad" id="cantidad">
+                </div>
+                <div class="btn">
+                    <div class="guardar">
+                        <button type="submit" id="siguiente">Guardar Registro</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

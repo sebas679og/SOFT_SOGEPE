@@ -14,7 +14,7 @@ public class T_Personas {
     protected int genero;
     
     //Sobrecarga de metodos
-	public T_Personas(int tipoDocumento2, String numeroIdentificacion2, String primerNombre2, String segundoNombre2, String primerApellido2, String segundoApellido2, String telefono2, String direccion2, int genero2) {
+	public T_Personas() {
 		super();
 	}
 

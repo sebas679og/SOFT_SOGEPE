@@ -108,3 +108,9 @@ width: 250px;
 .btn-succes button:hover{
     background-color: #ec7f00;
 }
+
+input[disabled] {
+    background-color: white; /* Cambia el color de fondo a blanco */
+    color: black; /* Cambia el color del texto a negro */
+    border: 1px solid #ccc; /* Ajusta el color del borde si es necesario */
+}
