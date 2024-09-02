@@ -15,12 +15,12 @@ import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Personas;
 import com.sagmade.model.T_Usuarios;
 
-@WebServlet(urlPatterns = {"/ServletAdmin","/nivel-1", "/insertarpu", "/buscarUsuarios", "/actualizarUsuario", "/eliminarUsuario"})
-public class ServletAdmin extends HttpServlet {
+@WebServlet(urlPatterns = {"/ServletUsuarios","/nivel-1", "/insertarpu", "/buscarUsuarios", "/actualizarUsuario", "/eliminarUsuario"})
+public class ServletUsuarios extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public ServletAdmin() {
+    public ServletUsuarios() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +51,8 @@ public class ServletAdmin extends HttpServlet {
 		case "/eliminarUsuario":
 			eliminarUsuario(request, response);
 		default:
-			System.out.println("No se reconoce la acción enviada por el usuario!!");
+			request.setAttribute("errorMessage", "Error de direccionamiento.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 		}
 	}
 	

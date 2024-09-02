@@ -170,9 +170,9 @@
                         <option value="" disabled selected>Seleccione Rol</option>
                         <option value="1" <%= rol == 1 ? "selected" : "" %>>Administrador</option>
                         <option value="2" <%= rol == 2 ? "selected" : "" %>>Gerente</option>
-                        <option value="4" <%= rol == 4 ? "selected" : "" %>>Funcionario de Producción</option>
-                        <option value="5" <%= rol == 5 ? "selected" : "" %>>Funcionario de Entrega</option>
-                        <option value="6" <%= rol == 6 ? "selected" : "" %>>Funcionario de Bodega</option>
+                        <option value="3" <%= rol == 4 ? "selected" : "" %>>Funcionario de Producción</option>
+                        <option value="4" <%= rol == 5 ? "selected" : "" %>>Funcionario de Entrega</option>
+                        <option value="5" <%= rol == 6 ? "selected" : "" %>>Funcionario de Bodega</option>
                     </select>
                 </div>
                 <div class="frm">

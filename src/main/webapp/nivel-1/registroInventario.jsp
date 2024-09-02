@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.sagmade.model.T_Productos" %>
+<%@ page import="com.sagmade.dao.ModuloInventario" %>
 <!DOCTYPE html>
 <html lang="es-co">
 <head>
@@ -11,6 +14,11 @@
     <link rel="stylesheet" href="../css/formPersona.css">
 </head>
 <body>
+	<%
+        // Obtener las categorías desde la base de datos
+        ModuloInventario moduloInventario = new ModuloInventario();
+        List<T_Productos> listaProductos = moduloInventario.obtenerProductos();
+    %>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="header">
             <a href="menu_principalAdmin.jsp">
@@ -29,7 +37,7 @@
                 <img src="../img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form action="">
+        <form action="${pageContext.request.contextPath}/insertarInventario" method="POST">
             <div class="form-grid">
                 <div class="frm">
                     <label for="fechaIngreso">Fecha de Ingreso</label>
@@ -39,7 +47,14 @@
                     <label for="producto">Seleccionar Producto</label>
                     <select name="producto" id="producto">
                         <option value="" disabled selected>Seleccione Producto</option>
-                        <option value="">productos</option>
+                        <%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_Productos productos : listaProductos) {
+                        %>
+                        <option value="<%= productos.getIdProductos() %>"><%= productos.getProducto() %></option>
+                        <% 
+                            } 
+                        %>
                     </select>
                 </div>
                 <div class="frm">

@@ -7,9 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.util.SessionIdGeneratorBase;
+
 import com.sagmade.config.Conexion;
 import com.sagmade.model.ListarUsuarios;
+import com.sagmade.model.T_EstadosUsuarios;
+import com.sagmade.model.T_Generos;
 import com.sagmade.model.T_Personas;
+import com.sagmade.model.T_Roles;
+import com.sagmade.model.T_TDocumentos;
 import com.sagmade.model.T_Usuarios;
 
 public class ModuloUsuarios {
@@ -29,16 +35,16 @@ public class ModuloUsuarios {
 			+ "FROM personas p "
 			+ "JOIN usuarios u ON p.idPersonas = u.persona "
 			+ "JOIN roles r ON u.rol = r.idRoles "
-			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
-			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios;");
+			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idDocumento "
+			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado;");
 	
 	private static final String LISTAR_USUARIO = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, p.numeroIdentificacion, "
 			+ "r.rol AS roles, eu.estado AS estadoUsuario, p.idPersonas AS id_personas, u.username AS username "
 			+ "FROM personas p "
 			+ "JOIN usuarios u ON p.idPersonas = u.persona "
 			+ "JOIN roles r ON u.rol = r.idRoles "
-			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos "
-			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios "
+			+ "JOIN tipo_documentos td ON p.tipoDocumento = td.idDocumento "
+			+ "JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado "
 			+ "WHERE p.numeroIdentificacion = ?;");
 	
 	private static final String ACTUALIZAR_PERSONA = ("UPDATE personas SET tipoDocumento = ?, numeroIdentificacion = ?, primerNombre = ?, "
@@ -50,6 +56,162 @@ public class ModuloUsuarios {
 	private static final String  ELIMINAR_USUARIO = ("DELETE FROM usuarios WHERE idUsuarios = ?");
 	
 	private static final String ELIMINAR_PERSONA = ("DELETE FROM personas WHERE idPersonas = ?");
+	
+	private static final String LISTAR_DOCUMENTOS = ("SELECT idDocumento, tipoDocumento FROM tipo_documentos");
+	
+	private static final String LISTAR_ROLES = ("SELECT * FROM roles");
+	
+	private static final String LISTAR_GENEROS = ("SELECT * FROM generos");
+	
+	private static final String LISTAR_ESTADOS = ("SELECT * FROM estado_usuarios");
+	
+	public List<T_EstadosUsuarios> obtenerEstados(){
+		List<T_EstadosUsuarios> estados = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			 //Establecer Conexion BD
+			conn = Conexion.getConnection();
+			
+			//ejecutar consulta SQL
+			ps = conn.prepareStatement(LISTAR_ESTADOS);
+			rs = ps.executeQuery();
+			
+			//Recorrer resultados y añadirlos a la lista
+			while (rs.next()) {
+				int idEstado = rs.getInt("idEstado");
+				String estado = rs.getString("estado");
+				estados.add(new T_EstadosUsuarios(idEstado, estado));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+               if (rs != null) rs.close();
+               if (ps != null) ps.close();
+               if (conn != null) conn.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+		}
+		 return estados;
+	}
+	
+	public List<T_Generos> obtenerGeneros(){
+		List<T_Generos> generos = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			 //Establecer Conexion BD
+			conn = Conexion.getConnection();
+			
+			//ejecutar consulta SQL
+			ps = conn.prepareStatement(LISTAR_GENEROS);
+			rs = ps.executeQuery();
+			
+			//Recorrer resultados y añadirlos a la lista
+			while (rs.next()) {
+				int idGeneros = rs.getInt("idGeneros");
+				String genero = rs.getString("genero");
+				generos.add(new T_Generos(idGeneros, genero));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+               if (rs != null) rs.close();
+               if (ps != null) ps.close();
+               if (conn != null) conn.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+		}
+		 return generos;
+	}
+	
+	public List<T_Roles> obtenerRoles(){
+		List<T_Roles> roles = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			 //Establecer Conexion BD
+			conn = Conexion.getConnection();
+			
+			//ejecutar consulta SQL
+			ps = conn.prepareStatement(LISTAR_ROLES);
+			rs = ps.executeQuery();
+			
+			//Recorrer resultados y añadirlos a la lista
+			while (rs.next()) {
+				int idRoles = rs.getInt("idRoles");
+				String rol = rs.getString("rol");
+				roles.add(new T_Roles(idRoles, rol));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+               if (rs != null) rs.close();
+               if (ps != null) ps.close();
+               if (conn != null) conn.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+		}
+		 return roles;
+	}
+	
+	public List<T_TDocumentos> obtenerDocumentos(){
+		List<T_TDocumentos> documentos = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			 //Establecer Conexion BD
+			conn = Conexion.getConnection();
+			
+			//ejecutar consulta SQL
+			ps = conn.prepareStatement(LISTAR_DOCUMENTOS);
+			rs = ps.executeQuery();
+			
+			//Recorrer resultados y añadirlos a la lista
+			while (rs.next()) {
+				int idDocumento = rs.getInt("idDocumento");
+				String tipoDocumento = rs.getString("tipoDocumento");
+				documentos.add(new T_TDocumentos(idDocumento, tipoDocumento));
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+               if (rs != null) rs.close();
+               if (ps != null) ps.close();
+               if (conn != null) conn.close();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+		}
+		 return documentos;
+	}
 	
 	public void eliminarUsuario(int idUsuarios, int idPersonas) throws SQLException{
 		try (Connection conn = Conexion.getConnection();

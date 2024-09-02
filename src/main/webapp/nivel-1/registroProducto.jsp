@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.sagmade.model.T_Categorias" %>
+<%@ page import="com.sagmade.dao.ModuloInventario" %>
 <!DOCTYPE html>
 <html lang="es-co">
 <head>
@@ -11,9 +14,14 @@
     <link rel="icon" href="../img/iconoPestaña.jpg" type="image/jpeg">
 </head>
 <body>
+    <%
+        // Obtener las categorías desde la base de datos
+        ModuloInventario moduloInventario = new ModuloInventario();
+        List<T_Categorias> listaCategorias = moduloInventario.obtenerCategorias();
+    %>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="header">
-            <a href="menu_principalAdmin.jsp">
+            <a href="${pageContext.request.contextPath}/menu_principalAdmin.jsp">
                 <img src="../img/Letras.png" alt="Platanitos de La Esmeralda" width="200px" class="logo">
             </a>
         </div>
@@ -25,17 +33,24 @@
     <div class="Persona">
         <h1 class="tituloFormUser">Registrar Producto</h1>
         <div class="cerrar">
-            <a href="gestionInventario.jsp">
+            <a href="${pageContext.request.contextPath}/nivel-1/gestionInventario.jsp">
                 <img src="../img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form action="">
+        <form action="${pageContext.request.contextPath}/insertarProducto" method="POST">
             <div class="form-grid">
                 <div class="frm">
                     <label for="categoria">Categoria</label>
                     <select name="categoria" id="categoria">
                         <option value="" disabled selected>Seleccionar Categoria</option>
-                        <option value="">valores</option>
+                        <%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_Categorias categoria : listaCategorias) {
+                        %>
+                        <option value="<%= categoria.getIdCategoria() %>"><%= categoria.getCategoria() %></option>
+                        <% 
+                            } 
+                        %>
                     </select>
                 </div>
                 <div class="frm">
@@ -51,11 +66,15 @@
                         <button type="submit" id="siguiente">Guardar Registro</button>
                     </div>
                     <div class="limpiar">
-                        <button onclick="">Eliminar Producto</button>
+                        <button type="button" onclick="">Eliminar Producto</button>
                     </div>
                 </div>
             </div>
         </form>
+         <%-- Mostrar mensaje si está presente --%>
+        <c:if test="${not empty mensaje}">
+            <p class="mensaje">${mensaje}</p>
+        </c:if>
     </div>
 </body>
 </html>

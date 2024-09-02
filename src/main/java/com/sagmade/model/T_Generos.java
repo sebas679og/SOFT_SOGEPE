@@ -1,16 +1,11 @@
 package com.sagmade.model;
 
 public class T_Generos {
-	protected int idGeneros;
-	protected String genero;
+	private int idGeneros;
+	private String genero;
 	
 	public T_Generos() {
 		super();
-	}
-
-	public T_Generos(String genero) {
-		super();
-		this.genero = genero;
 	}
 
 	public T_Generos(int idGeneros, String genero) {
@@ -34,4 +29,6 @@ public class T_Generos {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
+	
+	
 }

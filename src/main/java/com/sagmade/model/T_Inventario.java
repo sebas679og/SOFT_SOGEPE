@@ -1,30 +1,27 @@
 package com.sagmade.model;
 
 public class T_Inventario {
-	protected int idInventario;
-	protected String fechaIngreso;
-	protected int cantidad;
-	protected String fechaSalida;
-	protected int producto;
+	private int idInventario;
+	private String fechaIngreso;
+	private int cantidad;
+	private int producto;
 	
 	public T_Inventario() {
 		super();
 	}
 
-	public T_Inventario(String fechaIngreso, int cantidad, String fechaSalida, int producto) {
+	public T_Inventario(String fechaIngreso, int cantidad, int producto) {
 		super();
 		this.fechaIngreso = fechaIngreso;
 		this.cantidad = cantidad;
-		this.fechaSalida = fechaSalida;
 		this.producto = producto;
 	}
 
-	public T_Inventario(int idInventario, String fechaIngreso, int cantidad, String fechaSalida, int producto) {
+	public T_Inventario(int idInventario, String fechaIngreso, int cantidad, int producto) {
 		super();
 		this.idInventario = idInventario;
 		this.fechaIngreso = fechaIngreso;
 		this.cantidad = cantidad;
-		this.fechaSalida = fechaSalida;
 		this.producto = producto;
 	}
 
@@ -50,14 +47,6 @@ public class T_Inventario {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public String getFechaSalida() {
-		return fechaSalida;
-	}
-
-	public void setFechaSalida(String fechaSalida) {
-		this.fechaSalida = fechaSalida;
 	}
 
 	public int getProducto() {

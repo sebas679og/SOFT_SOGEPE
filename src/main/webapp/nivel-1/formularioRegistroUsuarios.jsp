@@ -1,5 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.sagmade.model.T_TDocumentos" %>
+<%@ page import="com.sagmade.model.T_Roles" %>
+<%@ page import="com.sagmade.model.T_Generos" %>
+<%@ page import="com.sagmade.model.T_EstadosUsuarios" %>
+<%@ page import="com.sagmade.dao.ModuloUsuarios" %>
 <!DOCTYPE html>
 <html lang="es-co">
 <head>
@@ -12,6 +17,14 @@
     <link rel="stylesheet" href="../css/formPersona.css">
 </head>
 <body>
+	<%
+        // Obtener las categorías desde la base de datos
+        ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
+        List<T_TDocumentos> listaDocumentos = moduloUsuarios.obtenerDocumentos();
+        List<T_Roles> listaRoles = moduloUsuarios.obtenerRoles();
+        List<T_Generos> listaGeneros = moduloUsuarios.obtenerGeneros();
+        List<T_EstadosUsuarios> listaEstados = moduloUsuarios.obtenerEstados();
+    %>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="header">
             <a href="menu_principalAdmin.jsp">
@@ -37,11 +50,14 @@
                     <label for="tipoDocumento">Tipo de Documento</label>
                     <select class="select" name="tipoDocumento" id="tipoDocumento" required>
                         <option value="" disabled selected>Seleccione Tipo de Identificacion</option>
-                        <option value="1">Cedula de Ciudadania - CC</option>
-                        <option value="2">Cedula de Extranjeria - CE</option>
-                        <option value="3">Permiso Especial de Permanencia - PEP</option>
-                        <option value="4">Pasaporte - PAS</option>
-                        <option value="5">Numero de Identificacion de Extranjeros - NIE</option>
+						<%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_TDocumentos documentos : listaDocumentos) {
+                        %>
+                        <option value="<%= documentos.getIdDocumento() %>"><%= documentos.getTipoDocumento() %></option>
+                        <% 
+                            } 
+                        %>
                     </select>
                 </div>
                 <div class="frm">
@@ -75,20 +91,29 @@
                 <div class="frm">
                     <label for="genero">Genero</label>
                     <select class="select" name="genero" id="genero" required>
-                        <option value="">Seleccione Genero</option>
-                        <option value="1">Femenino</option>
-                        <option value="2">Masculino</option>
+                        <option value="" disabled selected>Seleccione Genero</option>
+                        <%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_Generos generos : listaGeneros) {
+                        %>
+                        <option value="<%= generos.getIdGeneros() %>"><%= generos.getGenero() %></option>
+                        <% 
+                            } 
+                        %>
                     </select>
                 </div>
                 <div class="frm">
                     <label for="rol">Rol de Usuario</label>
                     <select class="select" name="rol" id="rol" required>
                         <option value="" disabled selected>Seleccione Rol</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Gerente</option>
-                        <option value="4">Funcionario de Producción</option>
-                        <option value="5">Funcionario de Entrega</option>
-                        <option value="6">Funcionario de Bodega</option>
+                        <%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_Roles roles : listaRoles) {
+                        %>
+                        <option value="<%= roles.getIdRoles() %>"><%= roles.getRol() %></option>
+                        <% 
+                            } 
+                        %>
                         
                     </select>
                 </div>
@@ -108,9 +133,14 @@
                     <label for="estadoUsuario">Estado del Usuario</label>
                     <select class="select" name="estadoUsuario" id="estadoUsuario" required>
                         <option value="" disabled selected>Seleccione Estado</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
-                        <option value="3">Suspendido</option>
+                        <%
+                            // Llenar el select con las categorías obtenidas
+                            for (T_EstadosUsuarios estados : listaEstados) {
+                        %>
+                        <option value="<%= estados.getIdEstado() %>"><%= estados.getEstado() %></option>
+                        <% 
+                            } 
+                        %>
                     </select>
                 </div>
                 <div class="btn">

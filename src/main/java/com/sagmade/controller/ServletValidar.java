@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import com.sagmade.dao.ValidarIngreso;
 
 @WebServlet({"/ServletController", "/Validar"})
-public class ServletController extends HttpServlet {
+public class ServletValidar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
  
-    public ServletController() {
+    public ServletValidar() {
         super();
         // TODO Auto-generated constructor stub
     }

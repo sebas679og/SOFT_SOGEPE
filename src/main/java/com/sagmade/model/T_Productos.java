@@ -2,42 +2,53 @@ package com.sagmade.model;
 
 public class T_Productos {
 	protected int idProductos;
+	protected int codigo;
 	protected String producto;
-	protected double valorCompra;
-	protected double valorVenta;
-	protected int estadoDelObjeto;
-	protected int composicion;
+	protected int categoria;
 	
+	//Sobrecarga de Metodos
 	public T_Productos() {
 		super();
 	}
+	
+	
 
-	public T_Productos(String producto, double valorCompra, double valorVenta, int estadoDelObjeto, int composicion) {
-		super();
-		this.producto = producto;
-		this.valorCompra = valorCompra;
-		this.valorVenta = valorVenta;
-		this.estadoDelObjeto = estadoDelObjeto;
-		this.composicion = composicion;
-	}
-
-	public T_Productos(int idProductos, String producto, double valorCompra, double valorVenta, int estadoDelObjeto,
-			int composicion) {
+	public T_Productos(int idProductos, String producto) {
 		super();
 		this.idProductos = idProductos;
 		this.producto = producto;
-		this.valorCompra = valorCompra;
-		this.valorVenta = valorVenta;
-		this.estadoDelObjeto = estadoDelObjeto;
-		this.composicion = composicion;
 	}
 
+	public T_Productos(int codigo, String producto, int categoria) {
+		super();
+		this.codigo = codigo;
+		this.producto = producto;
+		this.categoria = categoria;
+	}
+
+	public T_Productos(int idProductos, int codigo, String producto, int categoria) {
+		super();
+		this.idProductos = idProductos;
+		this.codigo = codigo;
+		this.producto = producto;
+		this.categoria = categoria;
+	}
+
+	//Getters y Setters
 	public int getIdProductos() {
 		return idProductos;
 	}
 
 	public void setIdProductos(int idProductos) {
 		this.idProductos = idProductos;
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getProducto() {
@@ -48,37 +59,11 @@ public class T_Productos {
 		this.producto = producto;
 	}
 
-	public double getValorCompra() {
-		return valorCompra;
+	public int getCategoria() {
+		return categoria;
 	}
 
-	public void setValorCompra(double valorCompra) {
-		this.valorCompra = valorCompra;
-	}
-
-	public double getValorVenta() {
-		return valorVenta;
-	}
-
-	public void setValorVenta(double valorVenta) {
-		this.valorVenta = valorVenta;
-	}
-
-	public int getEstadoDelObjeto() {
-		return estadoDelObjeto;
-	}
-
-	public void setEstadoDelObjeto(int estadoDelObjeto) {
-		this.estadoDelObjeto = estadoDelObjeto;
-	}
-
-	public int getComposicion() {
-		return composicion;
-	}
-
-	public void setComposicion(int composicion) {
-		this.composicion = composicion;
-	}
-	
-	
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
+	}	
 }

@@ -47,8 +47,8 @@ SELECT u.idUsuarios AS id_usuarios,
 FROM personas p 
 JOIN usuarios u ON p.idPersonas = u.persona 
 JOIN roles r ON u.rol = r.idRoles 
-JOIN tipo_documentos td ON p.tipoDocumento = td.idTipo_Documentos 
-JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado_Usuarios;
+JOIN tipo_documentos td ON p.tipoDocumento = td.idDocumento 
+JOIN estado_usuarios eu ON u.estadoUsuario = eu.idEstado;
 
 UPDATE usuarios SET username = 'manicur', contraseña = 'Manuela234', correo = 'manuela@dominio.com', estadoUsuario = 1, rol = 4 WHERE idUsuarios = 8;
 
@@ -60,3 +60,27 @@ SELECT * FROM usuarios WHERE idUsuarios = 1;
 select * FROM personas;
 select * FROM usuarios;
 
+INSERT INTO categorias (categoria) VALUES ('PRODUCCION'), ('BODEGA'), ('UTILERIA'), ('MATERIA PRIMA');
+
+SELECT * FROM categorias;
+
+SELECT * FROM productos;
+
+SELECT * FROM productos;
+
+SET SQL_SAFE_UPDATES = 0;
+
+TRUNCATE TABLE productos;
+
+SELECT idDocumento, tipoDocumento FROM tipo_documentos;
+
+SELECT * FROM inventario;
+
+SELECT  i.idInventario AS id_inventario,
+		i.fechaIngreso AS fecha_ingreso,
+		c.categoria AS categoria,
+		p.producto AS producto,
+		i.cantidad AS cantidad
+FROM SOGEPE.inventario i
+JOIN SOGEPE.productos p ON i.producto = p.idProductos
+JOIN SOGEPE.Categorias c ON p.categoria = c.idCategoria;

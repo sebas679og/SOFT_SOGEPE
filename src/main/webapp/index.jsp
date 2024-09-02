@@ -22,7 +22,7 @@
                 <option value="Funcionario de Entrega">Funcionario de Entrega</option>
             </select>
             <label for="usuario">Usuario:</label>
-            <input type="text" required id="usuario" name="username" placeholder="Introduzca su Usuario">
+            <input type="text" id="usuario" name="username" autocomplete="username" placeholder="Introduzca su Usuario" required>
             <label for="contraseña">Contraseña:</label>
             <input type="password" required id="contraseña" name="contraseña" placeholder="Introduzca su Contraseña">
             <input type="submit" name="btnIngresar" value="INGRESAR" id="boton">
