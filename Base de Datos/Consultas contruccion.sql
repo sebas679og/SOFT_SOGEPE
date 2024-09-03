@@ -76,11 +76,19 @@ SELECT idDocumento, tipoDocumento FROM tipo_documentos;
 
 SELECT * FROM inventario;
 
-SELECT  i.idInventario AS id_inventario,
-		i.fechaIngreso AS fecha_ingreso,
-		c.categoria AS categoria,
-		p.producto AS producto,
-		i.cantidad AS cantidad
-FROM SOGEPE.inventario i
-JOIN SOGEPE.productos p ON i.producto = p.idProductos
-JOIN SOGEPE.Categorias c ON p.categoria = c.idCategoria;
+SELECT i.idInventario AS id_inventario, 
+	i.fechaIngreso AS fecha_ingreso, 
+	c.categoria AS categoria, 
+    p.producto AS producto, 
+    i.cantidad AS cantidad 
+FROM inventario i 
+JOIN productos p ON i.producto = p.idProductos 
+JOIN Categorias c ON p.categoria = c.idCategoria
+WHERE i.idInventario = 7;
+
+SELECT p.codigo AS codigo, p.producto AS producto, c.categoria AS categoria 
+FROM productos p 
+JOIN categorias c ON p.categoria = c.idCategoria;
+
+DELETE FROM productos WHERE codigo = 12;
+

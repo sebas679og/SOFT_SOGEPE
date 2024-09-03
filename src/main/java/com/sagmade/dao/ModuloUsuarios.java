@@ -53,7 +53,7 @@ public class ModuloUsuarios {
 	private static final String ACTUALIZAR_USUARIO = ("UPDATE usuarios SET username = ?, contraseña = ?, correo = ?, "
 			+ "estadoUsuario = ?, rol = ? WHERE idUsuarios = ?");
 	
-	private static final String  ELIMINAR_USUARIO = ("DELETE FROM usuarios WHERE idUsuarios = ?");
+	private static final String ELIMINAR_USUARIO = ("DELETE FROM usuarios WHERE idUsuarios = ?");
 	
 	private static final String ELIMINAR_PERSONA = ("DELETE FROM personas WHERE idPersonas = ?");
 	

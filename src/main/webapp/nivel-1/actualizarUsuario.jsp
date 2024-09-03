@@ -1,6 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.*"%>
+<%@ page import="com.sagmade.model.T_TDocumentos" %>
+<%@ page import="com.sagmade.model.T_Roles" %>
+<%@ page import="com.sagmade.model.T_Generos" %>
+<%@ page import="com.sagmade.model.T_EstadosUsuarios" %>
+<%@ page import="com.sagmade.dao.ModuloUsuarios" %>
 <%
     // Conexión a la base de datos
     String url = "jdbc:mysql://localhost:3306/sogepe?useSSL=false"; // Cambia esto por tu URL de base de datos
@@ -92,6 +97,14 @@
     <link rel="stylesheet" href="../css/formPersona.css">
 </head>
 <body>
+	<%
+        // Obtener las categorías desde la base de datos
+        ModuloUsuarios moduloUsuarios = new ModuloUsuarios();
+        List<T_TDocumentos> listaDocumentos = moduloUsuarios.obtenerDocumentos();
+        List<T_Roles> listaRoles = moduloUsuarios.obtenerRoles();
+        List<T_Generos> listaGeneros = moduloUsuarios.obtenerGeneros();
+        List<T_EstadosUsuarios> listaEstados = moduloUsuarios.obtenerEstados();
+    %>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="header">
             <a href="menu_principalAdmin.jsp">
@@ -118,16 +131,17 @@
 
             <div class="form-grid">
                 <div class="frm">
-                    <label for="tipoDocumento">Tipo de Documento</label>
-                    <select class="select" name="tipoDocumento" id="tipoDocumento" required>
-                        <option value="" disabled selected>Seleccione Tipo de Identificación</option>
-                        <option value="1" <%= tipoDocumento == 1 ? "selected" : "" %>>Cédula de Ciudadanía - CC</option>
-                        <option value="2" <%= tipoDocumento == 2 ? "selected" : "" %>>Cédula de Extranjería - CE</option>
-                        <option value="3" <%= tipoDocumento == 3 ? "selected" : "" %>>Permiso Especial de Permanencia - PEP</option>
-                        <option value="4" <%= tipoDocumento == 4 ? "selected" : "" %>>Pasaporte - PAS</option>
-                        <option value="5" <%= tipoDocumento == 5 ? "selected" : "" %>>Número de Identificación de Extranjeros - NIE</option>
-                    </select>
-                </div>
+    				<label for="tipoDocumento">Tipo de Documento</label>
+    				<select class="select" name="tipoDocumento" id="tipoDocumento" required>
+       					 <option value="" disabled>Seleccione Tipo de Identificación</option>
+        					<% for (T_TDocumentos documentos : listaDocumentos) { %>
+            			<option value="<%= documentos.getIdDocumento() %>" 
+                   			 <%= (documentos.getIdDocumento() == tipoDocumento) ? "selected" : "" %>>
+                			<%= documentos.getTipoDocumento() %>
+           				</option>
+        					<% } %>
+    				</select>
+				</div>
                 <div class="frm">
                     <label for="numeroIdentificacion">Número de Identificación</label>
                     <input type="number" name="numeroIdentificacion" id="numeroIdentificacion" value="<%= numeroIdentificacion %>" required>
@@ -157,24 +171,29 @@
                     <input type="text" name="direccion" id="direccion" value="<%= direccion %>" required>
                 </div>
                 <div class="frm">
-                    <label for="genero">Género</label>
-                    <select class="select" name="genero" id="genero" required>
-                        <option value="" disabled selected>Seleccione Género</option>
-                        <option value="1" <%= genero == 1 ? "selected" : "" %>>Femenino</option>
-                        <option value="2" <%= genero == 2 ? "selected" : "" %>>Masculino</option>
-                    </select>
-                </div>
+    				<label for="genero">Género</label>
+    				<select class="select" name="genero" id="genero" required>
+       					 <option value="" disabled>Seleccione Género</option>
+        					<% for (T_Generos generos : listaGeneros) { %>
+            				<option value="<%= generos.getIdGeneros() %>" 
+	                    		<%= (generos.getIdGeneros() == genero) ? "selected" : "" %>>
+	                			<%= generos.getGenero() %>
+            				</option>
+        					<% } %>
+    				</select>
+				</div>
                 <div class="frm">
-                    <label for="rol">Rol de Usuario</label>
-                    <select class="select" name="rol" id="rol" required>
-                        <option value="" disabled selected>Seleccione Rol</option>
-                        <option value="1" <%= rol == 1 ? "selected" : "" %>>Administrador</option>
-                        <option value="2" <%= rol == 2 ? "selected" : "" %>>Gerente</option>
-                        <option value="3" <%= rol == 4 ? "selected" : "" %>>Funcionario de Producción</option>
-                        <option value="4" <%= rol == 5 ? "selected" : "" %>>Funcionario de Entrega</option>
-                        <option value="5" <%= rol == 6 ? "selected" : "" %>>Funcionario de Bodega</option>
-                    </select>
-                </div>
+				    <label for="rol">Rol de Usuario</label>
+				    <select class="select" name="rol" id="rol" required>
+				        <option value="" disabled>Seleccione Rol</option>
+				        <% for (T_Roles roles : listaRoles) { %>
+				            <option value="<%= roles.getIdRoles() %>" 
+				                    <%= (roles.getIdRoles() == rol) ? "selected" : "" %>>
+				                <%= roles.getRol() %>
+				            </option>
+				        <% } %>
+				    </select>
+				</div>
                 <div class="frm">
                     <label for="username">Nombre de Usuario</label>
                     <input type="text" name="username" id="username" value="<%= username %>" required>
@@ -188,14 +207,17 @@
                     <input type="email" name="correo" id="correo" value="<%= correo %>" required>
                 </div>
                 <div class="frm">
-                    <label for="estadoUsuario" disabled selected>Estado del Usuario</label>
-                    <select class="select" name="estadoUsuario" id="estadoUsuario" required>
-                    	<option value="" disabled selected>Seleccione Estado</option>
-                        <option value="1" <%= estadoUsuario == 1 ? "selected" : "" %>>Activo</option>
-                        <option value="2" <%= estadoUsuario == 2 ? "selected" : "" %>>Inactivo</option>
-                        <option value="3" <%= estadoUsuario == 3 ? "selected" : "" %>>Suspendido</option>
-                    </select>
-                </div>
+				    <label for="estadoUsuario">Estado del Usuario</label>
+				    <select class="select" name="estadoUsuario" id="estadoUsuario" required>
+				        <option value="" disabled>Seleccione Estado</option>
+				        <% for (T_EstadosUsuarios estados : listaEstados) { %>
+				            <option value="<%= estados.getIdEstado() %>" 
+				                    <%= (estados.getIdEstado() == estadoUsuario) ? "selected" : "" %>>
+				                <%= estados.getEstado() %>
+				            </option>
+				        <% } %>
+				    </select>
+				</div>
                 <div class="btn">
                     <div class="guardar">
                         <button type="submit" id="siguiente">Guardar Registro</button>

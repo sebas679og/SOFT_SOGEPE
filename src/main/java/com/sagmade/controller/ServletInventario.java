@@ -8,12 +8,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.sagmade.dao.ModuloInventario;
+import com.sagmade.dao.ModuloUsuarios;
+import com.sagmade.model.ListarInventario;
+import com.sagmade.model.ListarProductos;
+import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Inventario;
 import com.sagmade.model.T_Productos;
 
-@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario"})
+@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario", "/buscarProducto", "/buscarInventario"})
 public class ServletInventario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,11 +43,95 @@ public class ServletInventario extends HttpServlet {
 	            break;
 	        case "/insertarInventario":
 	            insertarInventario(request, response);
-	            break; 
+	            break;
+	        case "/buscarProducto":
+	            buscarProducto(request, response);
+	            break;
+	        case "/buscarInventario":
+	            buscarInventario(request, response);
+	            break;
 	        default:
 	            request.setAttribute("errorMessage", "Error de direccionamiento");
 	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	            break;
+	    }
+	}
+	
+	private void buscarInventario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String codigoInventarioStr = request.getParameter("search");
+	    int codigoInventario = 0;
+	    
+	    if (codigoInventarioStr != null && !codigoInventarioStr.trim().isEmpty()) {
+	        try {
+	        	codigoInventario = Integer.parseInt(codigoInventarioStr);
+	        } catch (NumberFormatException e) {
+	            request.setAttribute("errorMessage", "El número de identificación debe ser un número.");
+	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+	            return;
+	        }
+	    }
+
+	    ModuloInventario moduloInventario = new ModuloInventario();
+	    try {
+	        List<ListarInventario> inventList;
+	        
+	        // Si 'numeroIdentificacion' es mayor que 0, busca por número de identificación
+	        if (codigoInventario > 0) {
+	        	inventList = moduloInventario.findInventsByNumeroCodigoI(codigoInventario);
+	        } else {
+	            // Si 'numeroIdentificacion' no es proporcionado, lista todos los usuarios
+	        	inventList = moduloInventario.listAllInventario();
+	        }
+
+	        // Establecer la lista de usuarios como atributo en la solicitud
+	        request.setAttribute("inventList", inventList);
+	        // Reenviar la solicitud a la página de lista de usuarios
+	        request.getRequestDispatcher("/nivel-1/consultarInventario.jsp").forward(request, response);
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // En caso de error, establece un mensaje de error y reenvía a la página de error
+	        request.setAttribute("errorMessage", "Error al recuperar el inventario. Por favor, intente nuevamente.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	    }
+	}
+	
+	private void buscarProducto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String codigoProductoStr = request.getParameter("search");
+	    int codigoProducto = 0;
+	    
+	    if (codigoProductoStr != null && !codigoProductoStr.trim().isEmpty()) {
+	        try {
+	        	codigoProducto = Integer.parseInt(codigoProductoStr);
+	        } catch (NumberFormatException e) {
+	            request.setAttribute("errorMessage", "El número de identificación debe ser un número.");
+	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+	            return;
+	        }
+	    }
+
+	    ModuloInventario moduloInventario = new ModuloInventario();
+	    try {
+	        List<ListarProductos> productstList;
+	        
+	        // Si 'numeroIdentificacion' es mayor que 0, busca por número de identificación
+	        if (codigoProducto > 0) {
+	        	productstList = moduloInventario.findProductsByNumeroCodigoP(codigoProducto);
+	        } else {
+	            // Si 'numeroIdentificacion' no es proporcionado, lista todos los usuarios
+	        	productstList = moduloInventario.listAllProducts();
+	        }
+
+	        // Establecer la lista de usuarios como atributo en la solicitud
+	        request.setAttribute("productstList", productstList);
+	        // Reenviar la solicitud a la página de lista de usuarios
+	        request.getRequestDispatcher("/nivel-1/registroProducto.jsp").forward(request, response);
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        // En caso de error, establece un mensaje de error y reenvía a la página de error
+	        request.setAttribute("errorMessage", "Error al recuperar la lista de Productos. Por favor, intente nuevamente.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	    }
 	}
 
@@ -59,7 +148,7 @@ public class ServletInventario extends HttpServlet {
 	        moduloInventario.insertarInventario(tinventario);
 
 	        // Cambia a `sendRedirect` para una redirección correcta.
-	        response.sendRedirect(request.getContextPath() + "/nivel-1/consultarInventario.jsp");
+	        response.sendRedirect("buscarInventario");
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        System.out.println("Error al cargar datos: " + e.getMessage());
@@ -87,7 +176,7 @@ public class ServletInventario extends HttpServlet {
 		
 		try {
 			moduloInventario.insertarProducto(tproductos);
-			response.sendRedirect(request.getContextPath() + "/nivel-1/registroInventario.jsp");
+			response.sendRedirect("buscarProducto");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error al cargar datos" + e.getMessage());

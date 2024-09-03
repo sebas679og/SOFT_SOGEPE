@@ -38,13 +38,13 @@
                         </a>
                     </div>
                     <div> 
-                        <a href="consultarInventario.jsp" class="btn-icon-u">
+                        <a href="/SOFT_SOGEPE/buscarInventario" class="btn-icon-u">
                             <img src="../img/buscarInventario.png" height="120px" alt="Buscar Inventario">
                             <span>Consultar Inventario</span>
                         </a>
                     </div>
                     <div> 
-                        <a href="registroProducto.jsp" class="btn-icon-u">
+                        <a href="/SOFT_SOGEPE/buscarProducto" class="btn-icon-u">
                             <img src="../img/agregar-producto.png" height="120px" alt="Productos">
                             <span>Agregar Producto</span>
                         </a>

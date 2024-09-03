@@ -1,21 +1,17 @@
-.Persona1{
+.Producto-list{
+    max-width: 1200px;
     height: auto;
-    width: 1300px;
+    width: auto;
     text-align: center;
     align-items: center;
-    background-color: #00913e;
-    border-radius: 8px;
-    padding: 20px;
     margin: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    top: 120px;
+    position: relative;
     justify-content: center;
 }
 
 .buscar {
     display: flex;
-    flex-wrap: wrap; /* Alinea el contenido del div verticalmente */
+    flex-direction: column; /* Alinea el contenido del div verticalmente */
     justify-content: center; /* Centra el contenido del div horizontalmente */
     align-items: center; /* Centra el contenido del div verticalmente */
     padding: 20px;
@@ -36,7 +32,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 10px;
+    margin: 10px;
     background-color: #ec7f00;
     color: white;
     padding: 10px 20px;
@@ -67,19 +63,18 @@ th, td {
 
 th {
     background-color: #3c5100;
-    color: white;
 }
 
 td{
     background-color: white;
-    color: black;
 }
 
-.table{
+.table-list{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    border-radius: 15px;
 }
 
 .action-btn {
@@ -90,20 +85,12 @@ td{
     margin-right: 5px;
 }
 
-.edit-btn {
-    background-color: #4CAF50;
-}
-
 .delete-btn {
     background-color: #f44336;
 }
 
-.delete-btn, .edit-btn{
+.delete-btn{
     border-radius: 4px;
-}
-
-.edit-btn:hover{
-    background-color: #3c5100;
 }
 
 .delete-btn:hover{

@@ -74,7 +74,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="5" style="color: red;">No se encontraron usuarios.</td>
+                                <td colspan="6" style="color: red;">No se encontraron usuarios.</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>
@@ -84,12 +84,11 @@
     </div>
     
     <script>
-		function confirmarEliminacion(idUsuarios, idPersonas) {
-		    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-		        window.location.href = '${pageContext.request.contextPath}/eliminarUsuario?idUsuarios=' + idUsuarios + '&idPersonas=' + idPersonas;
-		    }
-		}
-</script>
-    
+	    function confirmarEliminacion(idUsuarios, idPersonas) {
+	        if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+	            window.location.href = '${pageContext.request.contextPath}/eliminarUsuario?idUsuarios=' + idUsuarios + '&idPersonas=' + idPersonas;
+	        }
+	    }
+	</script>
 </body>
 </html>
