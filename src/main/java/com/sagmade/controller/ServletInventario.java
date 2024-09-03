@@ -18,7 +18,7 @@ import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Inventario;
 import com.sagmade.model.T_Productos;
 
-@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario", "/buscarProducto", "/buscarInventario"})
+@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario", "/buscarProducto", "/buscarInventario", "/eliminarProducto", "/eliminarInventario"})
 public class ServletInventario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -50,10 +50,60 @@ public class ServletInventario extends HttpServlet {
 	        case "/buscarInventario":
 	            buscarInventario(request, response);
 	            break;
+	        case "/eliminarProducto":
+	        	eliminarProducto(request, response);
+	        	break;
+	        case "/eliminarInventario":
+	        	eliminarInventario(request, response);
+	        	break;
 	        default:
 	            request.setAttribute("errorMessage", "Error de direccionamiento");
 	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	            break;
+	    }
+	}
+	
+	private void eliminarInventario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int idInventario = Integer.parseInt(request.getParameter("idInventario"));
+		
+		ModuloInventario moduloInventario = new ModuloInventario();
+		
+		try {
+	        moduloInventario.eliminarInventario(idInventario);
+
+	        // Cambia a `sendRedirect` para una redirección correcta.
+	        response.sendRedirect("buscarInventario");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Error al eliminar registro: " + e.getMessage());
+
+	        // Usa `forward` si no se ha comprometido la respuesta y hay un error.
+	        if (!response.isCommitted()) {
+	            request.setAttribute("errorMessage", "Error al eliminar registro del inventario.");
+	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	        }
+	    }
+	}
+	
+	private void eliminarProducto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int codigo = Integer.parseInt(request.getParameter("codigo"));
+		
+		ModuloInventario moduloInventario = new ModuloInventario();
+		
+		try {
+	        moduloInventario.eliminarProducto(codigo);
+
+	        // Cambia a `sendRedirect` para una redirección correcta.
+	        response.sendRedirect("buscarProducto");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Error al eliminar datos: " + e.getMessage());
+
+	        // Usa `forward` si no se ha comprometido la respuesta y hay un error.
+	        if (!response.isCommitted()) {
+	            request.setAttribute("errorMessage", "Error al eliminar producto.");
+	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	        }
 	    }
 	}
 	

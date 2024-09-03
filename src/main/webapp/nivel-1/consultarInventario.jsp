@@ -66,7 +66,7 @@
 				                        </button>
                                         <!-- Botón "Eliminar" con evento onclick para confirmar la eliminación -->
     									<button class="action-btn delete-btn" 
-    										onclick="confirmarEliminacion(${user.idUsuarios}, ${user.idPersonas})">Eliminar
+    										onclick="confirmarEliminacion(${invent.idInventario})">Eliminar
     									</button>
                                     </td>
                                 </tr>
@@ -74,7 +74,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="5" style="color: red;">No se encontro el inventario.</td>
+                                <td colspan="6" style="color: red;">No se encontro el inventario.</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>
@@ -82,5 +82,12 @@
             </table>
         </div>
     </div>
+    <script>
+	    function confirmarEliminacion(idInventario) {
+	        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+	            window.location.href = '${pageContext.request.contextPath}/eliminarInventario?idInventario=' + encodeURIComponent(idInventario);
+	        }
+	    }
+	</script>
 </body>
 </html>

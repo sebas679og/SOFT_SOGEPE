@@ -11,7 +11,12 @@ public class T_Productos {
 		super();
 	}
 	
-	
+
+	public T_Productos(int codigo) {
+		super();
+		this.codigo = codigo;
+	}
+
 
 	public T_Productos(int idProductos, String producto) {
 		super();

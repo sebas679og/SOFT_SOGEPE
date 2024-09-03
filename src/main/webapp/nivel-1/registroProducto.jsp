@@ -107,7 +107,7 @@
 				                        </button> -->
                                         <!-- Botón "Eliminar" con evento onclick para confirmar la eliminación -->
     									<button class="action-btn delete-btn" 
-    										onclick="confirmarEliminacion(${user.idUsuarios}, ${user.idPersonas})">Eliminar
+    										onclick="confirmarEliminacion(${product.codigo})">Eliminar
     									</button>
                                     </td>
                                 </tr>
@@ -115,7 +115,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="5" style="color: red;">No se encontraron usuarios.</td>
+                                <td colspan="4" style="color: red;">No se encontraron usuarios.</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>
@@ -124,5 +124,12 @@
             </div>
         </div>
     </div>
+    <script>
+	    function confirmarEliminacion(codigo) {
+	        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+	            window.location.href = '${pageContext.request.contextPath}/eliminarProducto?codigo=' + encodeURIComponent(codigo);
+	        }
+	    }
+	</script>
 </body>
 </html>

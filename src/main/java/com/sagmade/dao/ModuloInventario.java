@@ -50,6 +50,38 @@ public class ModuloInventario {
 			+ "JOIN Categorias c ON p.categoria = c.idCategoria "
 			+ "WHERE i.idInventario = ?");
 	
+	private static final String ELIMINAR_PRODUCTO = ("DELETE FROM productos WHERE codigo = ?");
+	
+	private static final String ELIMINAR_INVENTARIO = ("DELETE FROM inventario WHERE idInventario = ?");
+	
+	public void eliminarInventario(int idInventario) throws SQLException{
+		try (Connection conn = Conexion.getConnection();
+				PreparedStatement ps = conn.prepareStatement(ELIMINAR_INVENTARIO)){
+			
+			//Eliminar de la tabla usuarios
+			ps.setInt(1, idInventario);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	public void eliminarProducto(int codigo) throws SQLException{
+		try (Connection conn = Conexion.getConnection();
+				PreparedStatement ps = conn.prepareStatement(ELIMINAR_PRODUCTO)){
+			
+			//Eliminar de la tabla usuarios
+			ps.setInt(1, codigo);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	public void insertarInventario(T_Inventario tinventario) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;
