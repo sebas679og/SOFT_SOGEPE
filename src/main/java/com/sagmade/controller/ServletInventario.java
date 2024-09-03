@@ -18,7 +18,7 @@ import com.sagmade.model.ListarUsuarios;
 import com.sagmade.model.T_Inventario;
 import com.sagmade.model.T_Productos;
 
-@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario", "/buscarProducto", "/buscarInventario", "/eliminarProducto", "/eliminarInventario"})
+@WebServlet(urlPatterns = {"/ServletInventario", "/insertarProducto", "/insertarInventario", "/buscarProducto", "/buscarInventario", "/eliminarProducto", "/eliminarInventario", "/actualizarInventario"})
 public class ServletInventario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -56,12 +56,69 @@ public class ServletInventario extends HttpServlet {
 	        case "/eliminarInventario":
 	        	eliminarInventario(request, response);
 	        	break;
+	        case "/actualizarInventario":
+	        	actualizarInventario(request, response);
+	        	break;
 	        default:
 	            request.setAttribute("errorMessage", "Error de direccionamiento");
 	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	            break;
 	    }
 	}
+	
+	private void actualizarInventario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String idInventarioStr = request.getParameter("codigoInventario");
+	    String fechaIngreso = request.getParameter("fechaIngreso");
+	    String cantidadStr = request.getParameter("cantidad");
+	    String productoStr = request.getParameter("producto");
+
+	    int idInventario = 0;
+	    int cantidad = 0;
+	    int producto = 0;
+
+	    try {
+	        if (idInventarioStr != null && !idInventarioStr.trim().isEmpty()) {
+	            idInventario = Integer.parseInt(idInventarioStr);
+	        } else {
+	            throw new IllegalArgumentException("El código de inventario no puede estar vacío.");
+	        }
+
+	        if (cantidadStr != null && !cantidadStr.trim().isEmpty()) {
+	            cantidad = Integer.parseInt(cantidadStr);
+	        } else {
+	            throw new IllegalArgumentException("La cantidad no puede estar vacía.");
+	        }
+
+	        if (productoStr != null && !productoStr.trim().isEmpty()) {
+	            producto = Integer.parseInt(productoStr);
+	        } else {
+	            throw new IllegalArgumentException("El producto no puede estar vacío.");
+	        }
+
+	        T_Inventario tinventario = new T_Inventario(idInventario, fechaIngreso, cantidad, producto);
+
+	        ModuloInventario moduloInventario = new ModuloInventario();
+	        moduloInventario.actualizarInventario(tinventario);
+
+	        response.sendRedirect("buscarInventario");
+	    } catch (NumberFormatException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al convertir número: " + e.getMessage());
+	        request.setAttribute("errorMessage", "Error al procesar los datos numéricos.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        System.out.println("Error de argumento: " + e.getMessage());
+	        request.setAttribute("errorMessage", e.getMessage());
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Error al cargar datos: " + e.getMessage());
+	        request.setAttribute("errorMessage", "Error al Registrar nuevos cambios en Inventario.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	    }
+	}
+
 	
 	private void eliminarInventario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int idInventario = Integer.parseInt(request.getParameter("idInventario"));

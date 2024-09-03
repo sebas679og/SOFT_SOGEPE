@@ -61,7 +61,7 @@
                                     <td>
                                         <!-- Botón "Actualizar" con evento onclick para redireccionar -->
 				                        <button class="action-btn edit-btn" 
-				                                onclick="window.location.href='${pageContext.request.contextPath}/nivel-1/actualizarUsuario.jsp?id=${user.idUsuarios}'">
+				                                onclick="window.location.href='${pageContext.request.contextPath}/nivel-1/actualizarInventario.jsp?id=${invent.idInventario}'">
 				                            Actualizar
 				                        </button>
                                         <!-- Botón "Eliminar" con evento onclick para confirmar la eliminación -->

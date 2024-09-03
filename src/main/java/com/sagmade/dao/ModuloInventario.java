@@ -54,6 +54,43 @@ public class ModuloInventario {
 	
 	private static final String ELIMINAR_INVENTARIO = ("DELETE FROM inventario WHERE idInventario = ?");
 	
+	private static final String ACTUALIZAR_INVENTARIO = ("UPDATE inventario SET fechaIngreso = ?, cantidad = ?, producto = ? WHERE idInventario = ?;");
+	
+	public void actualizarInventario(T_Inventario tinventario) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = Conexion.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(ACTUALIZAR_INVENTARIO);
+			ps.setString(1, tinventario.getFechaIngreso());
+			ps.setInt(2, tinventario.getCantidad());
+			ps.setInt(3, tinventario.getProducto());
+			ps.setInt(4, tinventario.getIdInventario());
+			ps.executeUpdate();
+			
+			conn.commit();
+			System.out.println("Datos actualizados exitosamente en tabla Inventario.");
+			System.out.println("Datos actualizados exitosamente en tabla Inventario.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		} finally {
+			
+			try {
+				if (ps != null) ps.close();
+				if (conn != null) conn.setAutoCommit(true); // Reactivar el autocommit
+			} catch (SQLException closeEx) {
+				closeEx.printStackTrace();
+				System.out.println(closeEx.getMessage());
+			}
+			
+		}
+	}
+	
 	public void eliminarInventario(int idInventario) throws SQLException{
 		try (Connection conn = Conexion.getConnection();
 				PreparedStatement ps = conn.prepareStatement(ELIMINAR_INVENTARIO)){

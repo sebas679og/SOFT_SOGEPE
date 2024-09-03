@@ -83,6 +83,15 @@ SELECT i.idInventario AS id_inventario,
     i.cantidad AS cantidad 
 FROM inventario i 
 JOIN productos p ON i.producto = p.idProductos 
+JOIN Categorias c ON p.categoria = c.idCategoria;
+
+SELECT i.idInventario AS id_inventario, 
+	i.fechaIngreso AS fecha_ingreso, 
+	c.categoria AS categoria, 
+    p.producto AS producto, 
+    i.cantidad AS cantidad 
+FROM inventario i 
+JOIN productos p ON i.producto = p.idProductos 
 JOIN Categorias c ON p.categoria = c.idCategoria
 WHERE i.idInventario = 7;
 
@@ -90,5 +99,23 @@ SELECT p.codigo AS codigo, p.producto AS producto, c.categoria AS categoria
 FROM productos p 
 JOIN categorias c ON p.categoria = c.idCategoria;
 
+SELECT p.codigo AS codigo, p.producto AS producto, c.categoria AS categoria 
+FROM productos p 
+JOIN categorias c ON p.categoria = c.idCategoria
+WHERE p.codigo = 1;
+
 DELETE FROM productos WHERE codigo = 12;
+
+DELETE FROM inventario WHERE idInventario = 1;
+
+SELECT i.idInventario AS id_inventario, 
+	i.fechaIngreso AS fecha_ingreso, 
+    p.producto AS producto, 
+    i.cantidad AS cantidad 
+FROM inventario i 
+JOIN productos p ON i.producto = p.idProductos 
+WHERE i.idInventario = 7;
+
+select * from inventario;
+UPDATE inventario SET fechaIngreso = '2024-09-12 21:20:00', cantidad = 123, producto = 3 WHERE idInventario = 6;
 
