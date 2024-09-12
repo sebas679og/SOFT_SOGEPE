@@ -74,7 +74,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="6" style="color: red;">No se encontro el inventario.</td>
+                                <td colspan="6" style="color: red;">No se encontraron registros.</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>

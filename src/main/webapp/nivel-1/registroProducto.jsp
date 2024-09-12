@@ -115,7 +115,7 @@
                         </c:when>
                         <c:otherwise>
                             <tr>
-                                <td colspan="4" style="color: red;">No se encontraron usuarios.</td>
+                                <td colspan="4" style="color: red;">No se encontraron productos.</td>
                             </tr>
                         </c:otherwise>
                     </c:choose>

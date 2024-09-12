@@ -94,11 +94,11 @@
                     <input type="hidden" name="codigoInventario" id="codigoInventario" value="<%= idInventario %>">
                 <div class="frm">
                     <label for="fechaIngreso">Fecha Ingreso</label>
-                    <input type="datetime-local" name="fechaIngreso" id="fechaIngreso" value="<%= fechaIngreso %>">
+                    <input type="datetime-local" name="fechaIngreso" id="fechaIngreso" required value="<%= fechaIngreso %>">
                 </div>
                 <div class="frm">
                     <label for="producto">Producto</label>
-                    <select name="producto" id="producto">
+                    <select name="producto" id="producto" required>
                         <option value="" disabled selected>Seleccione Producto</option>
                         <%
                             // Llenar el select con los productos obtenidos
@@ -112,7 +112,7 @@
                 </div>
                 <div class="frm">
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" value="<%= cantidad %>">
+                    <input type="number" name="cantidad" id="cantidad" value="<%= cantidad %> required">
                 </div>
                 <div class="btn">
                     <div class="guardar">

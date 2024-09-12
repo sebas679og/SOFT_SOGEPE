@@ -100,7 +100,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SOGEPE`.`Usuarios` (
   `idUsuarios` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(50) NOT NULL,
-  `contraseña` VARCHAR(20) NOT NULL,
+  `contraseña` VARCHAR(110) NOT NULL,
   `correo` VARCHAR(150) NOT NULL,
   `estadoUsuario` INT NOT NULL,
   `rol` INT NOT NULL,
@@ -130,12 +130,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SOGEPE`.`Areas_trabajos`
+-- Table `SOGEPE`.`Areas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SOGEPE`.`Areas_trabajos` (
-  `idArea_trabajo` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `SOGEPE`.`Areas` (
+  `idArea` INT NOT NULL AUTO_INCREMENT,
   `area` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`idArea_trabajo`))
+  PRIMARY KEY (`idArea`))
 ENGINE = InnoDB;
 
 
@@ -150,23 +150,23 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SOGEPE`.`Registro_de_actividades`
+-- Table `SOGEPE`.`Registro_Informes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SOGEPE`.`Registro_de_actividades` (
-  `idRegistro_de_actividades` INT NOT NULL AUTO_INCREMENT,
-  `descripcion` VARCHAR(1000) NOT NULL,
-  `observacion` VARCHAR(500) NOT NULL,
+CREATE TABLE IF NOT EXISTS `SOGEPE`.`Registro_Informes` (
+  `idRegistro` INT NOT NULL AUTO_INCREMENT,
+  `usuario` INT NOT NULL,
   `areaTrabajo` INT NOT NULL,
   `actividad` INT NOT NULL,
   `fechaRegistro` DATETIME NOT NULL,
-  `usuario` INT NOT NULL,
-  PRIMARY KEY (`idRegistro_de_actividades`),
+  `descripcion` TEXT NOT NULL,
+  `observacion` TEXT NOT NULL,
+  PRIMARY KEY (`idRegistro`),
   INDEX `fk_Registro_de_actividades_Areas_trabajos1_idx` (`areaTrabajo` ASC) VISIBLE,
   INDEX `fk_Registro_de_actividades_Actividades1_idx` (`actividad` ASC) VISIBLE,
   INDEX `fk_Registro_de_actividades_Usuarios1_idx` (`usuario` ASC) VISIBLE,
   CONSTRAINT `fk_Registro_de_actividades_Areas_trabajos1`
     FOREIGN KEY (`areaTrabajo`)
-    REFERENCES `SOGEPE`.`Areas_trabajos` (`idArea_trabajo`)
+    REFERENCES `SOGEPE`.`Areas` (`idArea`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Registro_de_actividades_Actividades1`

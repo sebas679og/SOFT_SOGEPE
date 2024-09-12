@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div>
-                <a href="#" class="btn-icon">
+                <a href="gestionActividades.jsp" class="btn-icon">
                     <img src="../img/gestionAct.png" height="120px" alt="Actividades">
                     <span>Gestion de Actividades</span>
                 </a>

@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="formulario">
-        <form action="Validar" method="post">
+        <form action="${pageContext.request.contextPath}/Validar" method="post">
             <h2>INICIO DE SESIÓN</h2>
             <label for="tipoUsuario">Tipo de Usuario:</label>
-            <select class="select_user" name="tipoUsuario" id="tipoUsuario">
+            <select class="select_user" name="tipoUsuario" id="tipoUsuario" required>
                 <option value="" disabled selected>Seleccionar Tipo de Usuario</option>
                 <option value="Administrador">Administrador</option>
                 <option value="Gerente">Gerente</option>

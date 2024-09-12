@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestión de Inventario</title>
+        <title>Registro de Inventario</title>
         <link rel="icon" href="../img/iconoPestaña.jpg" type="image/jpeg">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/Menu.css">
@@ -23,7 +23,7 @@
         </header>
        
         <div class="contenidoP">
-            <h1>RESGISTRO Y CONSULTA DE INVENTARIO</h1>
+            <h1>RESGISTRO Y CONSULTA DE INFORMES</h1>
             <div class="cerrar">
                 <a href="menu_principalAdmin.jsp">
                     <img src="../img/cerrar.png" alt="cerrar" height="20px">
@@ -32,21 +32,15 @@
             <div class="contenido">
                 <nav class="navigation">
                     <div> 
-                        <a href="registroInventario.jsp" class="btn-icon-u">
-                            <img src="../img/agregarInventario.png" height="120px" alt="Agregar a Inventario">
-                            <span>Regsitrar Inventario</span>
+                        <a href="registroActividad.jsp" class="btn-icon-u">
+                            <img src="../img/informe.png" height="120px" alt="Agregar a Inventario">
+                            <span>Realizar Informe</span>
                         </a>
                     </div>
                     <div> 
-                        <a href="/SOFT_SOGEPE/buscarInventario" class="btn-icon-u">
-                            <img src="../img/buscarInventario.png" height="120px" alt="Buscar Inventario">
-                            <span>Consultar Inventario</span>
-                        </a>
-                    </div>
-                    <div> 
-                        <a href="/SOFT_SOGEPE/buscarProducto" class="btn-icon-u">
-                            <img src="../img/agregar-producto.png" height="120px" alt="Productos">
-                            <span>Agregar Producto</span>
+                        <a href="consultarRegistros.jsp" class="btn-icon-u">
+                            <img src="../img/buscarInforme.png" height="120px" alt="Productos">
+                            <span>Consultar Informes</span>
                         </a>
                     </div>
                 </nav>

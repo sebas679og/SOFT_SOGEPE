@@ -47,6 +47,14 @@ public class T_Usuarios {
 		this.estadoUsuario = estadoUsuario;
 		this.rol = rol;
 	}
+	
+	
+
+	public T_Usuarios(int idUsuarios, String username) {
+		super();
+		this.idUsuarios = idUsuarios;
+		this.username = username;
+	}
 
 	public int getIdUsuarios() {
 		return idUsuarios;

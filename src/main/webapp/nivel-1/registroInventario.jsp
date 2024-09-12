@@ -41,11 +41,11 @@
             <div class="form-grid">
                 <div class="frm">
                     <label for="fechaIngreso">Fecha de Ingreso</label>
-                    <input type="datetime-local" name="fechaIngreso" id="fechaIngreso">
+                    <input type="datetime-local" name="fechaIngreso" id="fechaIngreso" required>
                 </div>
                 <div class="frm">
                     <label for="producto">Seleccionar Producto</label>
-                    <select name="producto" id="producto">
+                    <select name="producto" id="producto" required>
                         <option value="" disabled selected>Seleccione Producto</option>
                         <%
                             // Llenar el select con las categorías obtenidas
@@ -59,7 +59,7 @@
                 </div>
                 <div class="frm">
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad">
+                    <input type="number" name="cantidad" id="cantidad" required>
                 </div>
                 <div class="btn">
                     <div class="guardar">

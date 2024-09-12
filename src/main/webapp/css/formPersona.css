@@ -1,5 +1,5 @@
 .Persona{
-    max-width: 1000px;
+    max-width: 1500px;
     height: auto;
     width: auto;
     text-align: center;
@@ -20,8 +20,9 @@
 
 .form-grid{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, 1fr);
     gap: 20px;
+    width: 100%;
 }
 
 .frm{
@@ -94,23 +95,50 @@ width: 250px;
     margin-top: 20px;
 }
 
-.btn-succes button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 10px;
-    background-color: #3c5100;
-    color: white;
-}
-
-.btn-succes button:hover{
-    background-color: #ec7f00;
-}
-
 input[disabled] {
     background-color: white; /* Cambia el color de fondo a blanco */
     color: black; /* Cambia el color del texto a negro */
     border: 1px solid #ccc; /* Ajusta el color del borde si es necesario */
 }
+
+.form-grid-r{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
+.frm-t{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.frm-t label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+textarea{
+    min-width: 90%;
+    max-width: 90%;
+    width: 90%;
+    height: 95px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    resize: vertical;
+    /*form-sizing: content;*/
+}
+
+.ck-editor__editable_inline {
+    min-width: 1100px; /* Ajusta este valor según el ancho que desees */
+    min-height: 200px;
+    padding: 10px;
+    border: 2px solid #ccc;
+  }
