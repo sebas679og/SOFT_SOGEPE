@@ -39,3 +39,13 @@ select * from usuarios;
 
 INSERT INTO categorias (categoria) VALUES ('PRODUCCION'), ('BODEGA'), ('UTILERIA'), ('MATERIA PRIMA');
 select * FROM categorias;
+
+describe areas;
+INSERT INTO areas (area) VALUES ("Produccion"), ("Bodega"), ("Oficina"), ("Entrega");
+select * from areas;
+
+describe actividades;
+INSERT INTO actividades (actividad, area) 
+	VALUES ("Retirar Cascara de Platano", 1), ("Rebanado de Platano", 1), ("Saborizante a Tajadas", 1), ("Fritura de Tajadas", 1), ("Separación de Calidad", 1), ("Pseo de Bolsa", 1),
+		("Sellado de Bolsa", 1), ("Preparación de Pedido", 2), ("Gestión de Inventario - Verificación", 2), ("Actividades Administrativas", 3), ("Entrega de Pedidos", 4);
+select * from actividades;

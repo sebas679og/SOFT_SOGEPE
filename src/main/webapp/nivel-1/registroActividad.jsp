@@ -22,7 +22,6 @@
         // Obtener las categorías desde la base de datos
         ModuloRegistros moduloRegistros = new ModuloRegistros();
         List<T_Areas> listaAreas = moduloRegistros.obtenerAreas();
-        List<T_Actividades> listaActividades = moduloRegistros.obtenerActividades();
         List<T_Usuarios> listaUsuarios = moduloRegistros.obtenerUsuarios();
     %>
     <header class="navbar navbar-expand-lg bg-body-tertiary">
@@ -77,14 +76,6 @@
                     <label for="actividad">Actividad</label>
                     <select name="actividad" id="actividad">
                         <option value="" disabled selected>Seleccionar Actividad</option>
-                        <%
-                            // Llenar el select con las categorías obtenidas
-                            for (T_Actividades actividad : listaActividades) {
-                        %>
-                        <option value="<%= actividad.getIdActividades() %>"><%= actividad.getActividad() %></option>
-                        <% 
-                            } 
-                        %>
                     </select>
                 </div>
                 <div class="frm">
@@ -121,6 +112,38 @@
               console.error(error);
             });
         });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+	    $(document).ready(function() {
+	        // Cuando se seleccione un área
+	        $('#area').change(function() {
+	            let idArea = $(this).val(); // Obtener el id del área seleccionada
+	
+	            // Hacer la solicitud AJAX al servlet
+	            $.ajax({
+	                url: '${pageContext.request.contextPath}/listarActividades',  // URL del servlet
+	                type: 'GET',
+	                data: { idArea: idArea },   // Enviar el id del área como parámetro
+	                dataType: 'json',
+	                success: function(response) {
+	                    // Limpiar el select de actividades
+	                    $('#actividad').empty();
+	                    
+	                    // Agregar un valor por defecto
+	                    $('#actividad').append('<option value="" disabled selected>Seleccionar Actividad</option>');
+	                    
+	                    // Rellenar el select con las actividades obtenidas
+	                    $.each(response, function(index, actividad) {
+	                        $('#actividad').append('<option value="' + actividad.idActividades + '">' + actividad.actividad + '</option>');
+	                    });
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error('Error al obtener actividades:', error);
+	                }
+	            });
+	        });
+	    });
     </script>
 </body>
 </html>

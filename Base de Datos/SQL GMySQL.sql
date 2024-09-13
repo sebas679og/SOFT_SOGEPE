@@ -145,7 +145,14 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SOGEPE`.`Actividades` (
   `idActividades` INT NOT NULL AUTO_INCREMENT,
   `actividad` VARCHAR(200) NOT NULL,
-  PRIMARY KEY (`idActividades`))
+  `area` INT NOT NULL,
+  PRIMARY KEY (`idActividades`),
+  INDEX `fk_Actividades_Areas1_idx` (`area` ASC) VISIBLE,
+  CONSTRAINT `fk_Actividades_Areas1`
+    FOREIGN KEY (`area`)
+    REFERENCES `SOGEPE`.`Areas` (`idArea`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

@@ -18,7 +18,7 @@ public class ModuloRegistros {
 		super();
 	}
 	
-	private static final String LISTAR_ACTIVIDADES = ("SELECT * FROM actividades");
+	private static final String LISTAR_ACTIVIDADES = ("SELECT idActividades, actividad FROM actividades WHERE area = ?");
 	private static final String LISTAR_AREAS = ("SELECT * FROM areas");
 	private static final String LISTAR_USUARIOS = ("SELECT idUSuarios, username FROM usuarios");
 	
@@ -59,7 +59,7 @@ public class ModuloRegistros {
 		return usuarios;
 	}
 	
-	public List<T_Actividades> obtenerActividades(){
+	public List<T_Actividades> obtenerActividadesPorArea(int idArea){
 		List<T_Actividades> actividades = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -71,12 +71,14 @@ public class ModuloRegistros {
 			
 			//ejecutar consulta SQL
 			ps = conn.prepareStatement(LISTAR_ACTIVIDADES);
+			ps.setInt(1, idArea);
 			rs = ps.executeQuery();
 			
 			//Recorrer resultados y añadirlos a la lista
 			while (rs.next()) {
 				int idActividades = rs.getInt("idActividades");
 				String actividad = rs.getString("actividad");
+				
 				actividades.add(new T_Actividades(idActividades, actividad));
 				
 			}
