@@ -3,12 +3,14 @@ package com.sagmade.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.sagmade.config.Conexion;
 import com.sagmade.model.T_Actividades;
 import com.sagmade.model.T_Areas;
+import com.sagmade.model.T_RegistroInformes;
 import com.sagmade.model.T_Usuarios;
 
 
@@ -19,8 +21,47 @@ public class ModuloRegistros {
 	}
 	
 	private static final String LISTAR_ACTIVIDADES = ("SELECT idActividades, actividad FROM actividades WHERE area = ?");
+	
 	private static final String LISTAR_AREAS = ("SELECT * FROM areas");
+	
 	private static final String LISTAR_USUARIOS = ("SELECT idUSuarios, username FROM usuarios");
+	
+	private static final String INSERTAR_REGISTRO = ("INSERT INTO resgistro_informes (usuario, areaTrabajo, actividad, fechaRegistro, descripcion, observacion) "
+			+ "VALUES (?, ?, ?, ?, ?, ?)");
+	
+	public void insertarRegistro(T_RegistroInformes tregistros) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = Conexion.getConnection();
+			
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(INSERTAR_REGISTRO);
+			ps.setInt(1, tregistros.getUsuario());
+			ps.setInt(2, tregistros.getAreaTrabajo());
+			ps.setInt(3, tregistros.getActividad());
+			ps.setString(4, tregistros.getFechaRegistro());
+			ps.setString(5, tregistros.getDescripcion());
+			ps.setString(6, tregistros.getObservacion());
+			ps.executeUpdate();
+			
+			conn.commit();
+			System.out.println("Datos insertados exitosamente en tabla Registro Informes.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}finally {
+			try {
+				if (ps != null) ps.close();
+				if (conn != null) conn.setAutoCommit(true); // Reactivar el autocommit
+			} catch (SQLException closeEx) {
+				closeEx.printStackTrace();
+				System.out.println(closeEx.getMessage());
+			}
+		}
+	}
 	
 	public List<T_Usuarios> obtenerUsuarios(){
 		List<T_Usuarios> usuarios = new ArrayList<>();

@@ -112,7 +112,7 @@
                 </div>
                 <div class="frm">
                     <label for="cantidad">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" value="<%= cantidad %> required">
+                    <input type="number" name="cantidad" id="cantidad" value="<%= cantidad %>" required>
                 </div>
                 <div class="btn">
                     <div class="guardar">

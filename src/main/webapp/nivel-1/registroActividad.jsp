@@ -42,7 +42,7 @@
                 <img src="../img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form action="">
+        <form action="${pageContext.request.contextPath}/insertarRegistro" method="POST" enctype="multipart/form-data">
             <div class="form-grid-r">
                 <div class="frm">
                     <label for="username">Usuario</label>
@@ -101,49 +101,16 @@
         </form>
     </div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-
-    <script>
-        // Selecciona todos los elementos textarea y aplica CKEditor a cada uno
-        document.querySelectorAll('textarea').forEach((textarea) => {
-          ClassicEditor
-            .create(textarea)
-            .catch(error => {
-              console.error(error);
-            });
-        });
-    </script>
+	<!-- Llamado de texto Enriquecido -->
+	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+	<script src="../js/textArea.js"></script>
+	
+	<!-- Llamado de Actividaddes de acuerdo al area seleccionada -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-	    $(document).ready(function() {
-	        // Cuando se seleccione un área
-	        $('#area').change(function() {
-	            let idArea = $(this).val(); // Obtener el id del área seleccionada
-	
-	            // Hacer la solicitud AJAX al servlet
-	            $.ajax({
-	                url: '${pageContext.request.contextPath}/listarActividades',  // URL del servlet
-	                type: 'GET',
-	                data: { idArea: idArea },   // Enviar el id del área como parámetro
-	                dataType: 'json',
-	                success: function(response) {
-	                    // Limpiar el select de actividades
-	                    $('#actividad').empty();
-	                    
-	                    // Agregar un valor por defecto
-	                    $('#actividad').append('<option value="" disabled selected>Seleccionar Actividad</option>');
-	                    
-	                    // Rellenar el select con las actividades obtenidas
-	                    $.each(response, function(index, actividad) {
-	                        $('#actividad').append('<option value="' + actividad.idActividades + '">' + actividad.actividad + '</option>');
-	                    });
-	                },
-	                error: function(xhr, status, error) {
-	                    console.error('Error al obtener actividades:', error);
-	                }
-	            });
-	        });
-	    });
-    </script>
+       <!--Definir la URL del servlet como una variable JavaScript -->
+       var servletUrl = '${pageContext.request.contextPath}/listarActividades';
+   </script>
+    <script src="../js/jsonActivity.js"></script>
 </body>
 </html>

@@ -20,5 +20,8 @@ class pruebaConexionbdTest {
         
         // Verificar que la conexión no sea nula
         assertNotNull(conexionResultado, "La conexión a la base de datos debería ser válida.");
+        
+        //Impresión de resultado en Consola
+        System.out.println(conexionResultado);
     }
 }

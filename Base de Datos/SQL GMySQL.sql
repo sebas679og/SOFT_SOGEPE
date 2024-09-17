@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`Personas` (
   CONSTRAINT `fk_Personas_Generos1`
     FOREIGN KEY (`genero`)
     REFERENCES `SOGEPE`.`Generos` (`idGeneros`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Personas_Tipo_Documentos1`
     FOREIGN KEY (`tipoDocumento`)
     REFERENCES `SOGEPE`.`Tipo_Documentos` (`idDocumento`)
@@ -114,18 +114,18 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`Usuarios` (
   CONSTRAINT `fk_Usuarios_Estado_Usuarios1`
     FOREIGN KEY (`estadoUsuario`)
     REFERENCES `SOGEPE`.`Estado_Usuarios` (`idEstado`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Usuarios_Roles1`
     FOREIGN KEY (`rol`)
     REFERENCES `SOGEPE`.`Roles` (`idRoles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Usuarios_Personas1`
     FOREIGN KEY (`persona`)
     REFERENCES `SOGEPE`.`Personas` (`idPersonas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -151,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`Actividades` (
   CONSTRAINT `fk_Actividades_Areas1`
     FOREIGN KEY (`area`)
     REFERENCES `SOGEPE`.`Areas` (`idArea`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -174,18 +174,18 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`Registro_Informes` (
   CONSTRAINT `fk_Registro_de_actividades_Areas_trabajos1`
     FOREIGN KEY (`areaTrabajo`)
     REFERENCES `SOGEPE`.`Areas` (`idArea`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Registro_de_actividades_Actividades1`
     FOREIGN KEY (`actividad`)
     REFERENCES `SOGEPE`.`Actividades` (`idActividades`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Registro_de_actividades_Usuarios1`
     FOREIGN KEY (`usuario`)
     REFERENCES `SOGEPE`.`Usuarios` (`idUsuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -213,8 +213,8 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`productos` (
   CONSTRAINT `fk_productos_Categoria_producto1`
     FOREIGN KEY (`categoria`)
     REFERENCES `SOGEPE`.`Categorias` (`idCategoria`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -231,8 +231,8 @@ CREATE TABLE IF NOT EXISTS `SOGEPE`.`inventario` (
   CONSTRAINT `fk_inventario_productos1`
     FOREIGN KEY (`producto`)
     REFERENCES `SOGEPE`.`productos` (`idProductos`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 USE `sogepe` ;

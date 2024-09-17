@@ -141,3 +141,7 @@ a:hover {
 .modal-button:hover {
     background-color: #ec7f00;
 }
+
+.error {
+    border: 2px solid red;
+}

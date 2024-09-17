@@ -76,17 +76,16 @@
         </form>
     </div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
-
+    <!-- Llamado de texto Enriquecido -->
+	<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+	<script src="../js/textArea.js"></script>
+	
+	<!-- Llamado de Actividaddes de acuerdo al area seleccionada -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        // Selecciona todos los elementos textarea y aplica CKEditor a cada uno
-        document.querySelectorAll('textarea').forEach((textarea) => {
-          ClassicEditor
-            .create(textarea)
-            .catch(error => {
-              console.error(error);
-            });
-        });
-    </script>
+       <!--Definir la URL del servlet como una variable JavaScript -->
+       var servletUrl = '${pageContext.request.contextPath}/listarActividades';
+   </script>
+    <script src="../js/jsonActivity.js"></script>
 </body>
 </html>

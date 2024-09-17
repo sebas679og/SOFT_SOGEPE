@@ -1,18 +1,23 @@
 package com.sagmade.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.sagmade.dao.ModuloRegistros;
 import com.sagmade.model.T_Actividades;
+import com.sagmade.model.T_RegistroInformes;
 
-@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades"})
+@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades", "/insertarRegistro"})
+@MultipartConfig
 public class ServletRegistrosA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,11 +40,41 @@ public class ServletRegistrosA extends HttpServlet {
 			 case "/listarActividades":
 				 listaractividades(request, response);
 				 break;
+			 case "/insertarRegistro" :
+				 insertarRegistro(request, response);
+				 break;
 			 default:
 				 request.setAttribute("errorMessage", "Error de direccionamiento");
 		            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	            break;
 		 }
+	}
+	
+	private void insertarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//Recuperar Datos del Formulario
+		int usuario = Integer.parseInt(request.getParameter("username"));
+		int areaTrabajo = Integer.parseInt(request.getParameter("area"));
+		int actividad = Integer.parseInt(request.getParameter("actividad"));
+		String fechaRegistro = request.getParameter("fechaRegistro");
+		String descripcion = request.getParameter("descripcion");
+		String observacion = request.getParameter("descripcion");
+		
+		//Creacion objetos de modelo
+		T_RegistroInformes tregistros = new T_RegistroInformes(usuario, areaTrabajo, actividad, fechaRegistro, descripcion, observacion);
+		
+		ModuloRegistros moduloRegistros = new ModuloRegistros();
+		
+		try {
+			moduloRegistros.insertarRegistro(tregistros);
+			//response.sendRedirect("buscarProducto");
+			request.getRequestDispatcher("/nivel-1/consultarRegistros.jsp").forward(request, response);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error al cargar datos" + e.getMessage());
+			request.setAttribute("errorMessage", "Error al Registrar Actividad.");
+	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+		}
+		
 	}
 
 	private void listaractividades(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

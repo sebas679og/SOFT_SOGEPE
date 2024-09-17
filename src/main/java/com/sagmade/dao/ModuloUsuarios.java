@@ -24,10 +24,10 @@ public class ModuloUsuarios {
 		super();
 	}
 	
-	private static final String INSERTAR_PERSONA = ("INSERT INTO personas (tipoDocumento, numeroIdentificacion, primerNombre, segundoNombre, "
+	public static final String INSERTAR_PERSONA = ("INSERT INTO personas (tipoDocumento, numeroIdentificacion, primerNombre, segundoNombre, "
 			+ "primerApellido, segundoApellido, telefono, direccion, genero) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	
-	private static final String INSERTAR_USUARIO = ("INSERT INTO usuarios (username, contraseña, correo, estadoUsuario, rol, persona) "
+	public static final String INSERTAR_USUARIO = ("INSERT INTO usuarios (username, contraseña, correo, estadoUsuario, rol, persona) "
 			+ "VALUES ( ?, ?, ?, ?, ?, ?)");
 	
 	private static final String LISTAR_USUARIOS = ("SELECT u.idUsuarios AS id_usuarios, td.sigla AS tipo_documentos, "

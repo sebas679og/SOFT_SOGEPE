@@ -21,14 +21,17 @@ class validarIngresoTest {
 
     @Test
     public void testValidarUsuarioValido() {
-        String username = "sebas679";
-        String contraseña = "Sog13112005";
+        String username = "sogepe";
+        String contraseña = "admin";
         String tipoUsuario = "Administrador";
 
         boolean resultado = validarIngreso.validarUsuario(username, contraseña, tipoUsuario);
 
         // Se asume que el usuario es válido para este conjunto de datos
         assertTrue(resultado, "El usuario debería ser válido");
+        
+      //Impresion de resultado en Consola
+        System.out.println(resultado);
     }
 
     @Test
@@ -41,6 +44,9 @@ class validarIngresoTest {
 
         // Se asume que la contraseña incorrecta hace que el usuario sea inválido
         assertFalse(resultado, "El usuario debería ser inválido");
+        
+        //Impresion de resultado en Consola
+        System.out.println(resultado);
     }
 
     @AfterEach
