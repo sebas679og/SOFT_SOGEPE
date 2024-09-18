@@ -38,7 +38,7 @@
                         </a>
                     </div>
                     <div> 
-                        <a href="consultarRegistros.jsp" class="btn-icon-u">
+                        <a href="/SOFT_SOGEPE/buscarRegistros" class="btn-icon-u">
                             <img src="../img/buscarInforme.png" height="120px" alt="Productos">
                             <span>Consultar Informes</span>
                         </a>
@@ -46,5 +46,13 @@
                 </nav>
             </div>
         </div>
+        
+        <script>
+		    function confirmarEliminacion(idInventario) {
+		        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+		            window.location.href = '${pageContext.request.contextPath}/eliminarRegistro?codigo=' + encodeURIComponent(codigo);
+		        }
+		    }
+	</script>
     </body>
 </html>

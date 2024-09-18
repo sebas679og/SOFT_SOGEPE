@@ -119,3 +119,23 @@ WHERE i.idInventario = 7;
 select * from inventario;
 UPDATE inventario SET fechaIngreso = '2024-09-12 21:20:00', cantidad = 123, producto = 3 WHERE idInventario = 6;
 
+select * from registro_informes;
+
+SELECT r.idRegistro AS id_registro, 
+       u.username AS username, 
+       r.fechaRegistro AS fecha_registro, 
+       a.area AS area_trabajo
+FROM Registro_Informes r
+JOIN Usuarios u ON u.idUsuarios = r.usuario  
+JOIN Areas a ON a.idArea = r.areaTrabajo;  
+
+SELECT r.idRegistro AS codigo, 
+       u.username AS username, 
+       r.fechaRegistro AS fechaRegistro, 
+       a.area AS area,
+       ac.actividad as actividad
+FROM Registro_Informes r
+JOIN Usuarios u ON u.idUsuarios = r.usuario  
+JOIN Areas a ON a.idArea = r.areaTrabajo
+JOIN actividades ac ON ac.idActividades = r.actividad
+WHERE r.idRegistro = 2;

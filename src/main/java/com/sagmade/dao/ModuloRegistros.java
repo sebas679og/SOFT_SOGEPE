@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sagmade.config.Conexion;
+import com.sagmade.model.ListarRegistros;
 import com.sagmade.model.T_Actividades;
 import com.sagmade.model.T_Areas;
 import com.sagmade.model.T_RegistroInformes;
@@ -26,9 +27,112 @@ public class ModuloRegistros {
 	
 	private static final String LISTAR_USUARIOS = ("SELECT idUSuarios, username FROM usuarios");
 	
-	private static final String INSERTAR_REGISTRO = ("INSERT INTO resgistro_informes (usuario, areaTrabajo, actividad, fechaRegistro, descripcion, observacion) "
+	private static final String INSERTAR_REGISTRO = ("INSERT INTO registro_informes (usuario, areaTrabajo, actividad, fechaRegistro, descripcion, observacion) "
 			+ "VALUES (?, ?, ?, ?, ?, ?)");
 	
+	private static final String LISTAR_REGISTROS = ("SELECT r.idRegistro AS codigo, u.username AS username, r.fechaRegistro AS fechaRegistro, "
+			+ "a.area AS area, ac.actividad as actividad "
+			+ "FROM Registro_Informes r "
+			+ "JOIN Usuarios u ON u.idUsuarios = r.usuario "
+			+ "JOIN Areas a ON a.idArea = r.areaTrabajo "
+			+ "JOIN actividades ac ON ac.idActividades = r.actividad;");
+	
+	private static final String LISTAR_REGISTRO = ("SELECT r.idRegistro AS codigo, u.username AS username, r.fechaRegistro AS fechaRegistro, "
+			+ "a.area AS area, ac.actividad as actividad "
+			+ "FROM Registro_Informes r "
+			+ "JOIN Usuarios u ON u.idUsuarios = r.usuario "
+			+ "JOIN Areas a ON a.idArea = r.areaTrabajo "
+			+ "JOIN actividades ac ON ac.idActividades = r.actividad "
+			+ "WHERE r.idRegistro = ?");
+	
+	public List<ListarRegistros> listarRegistrosPorCodigo (int codigoRegistro) throws SQLException {
+		List<ListarRegistros> registrolist = new ArrayList<>();
+		
+		try (Connection conn = Conexion.getConnection();
+				PreparedStatement ps = conn.prepareStatement(LISTAR_REGISTRO)){
+			ps.setInt(1, codigoRegistro);
+			
+			try(ResultSet rs = ps.executeQuery()){
+				while (rs.next()) {
+					int codigo = rs.getInt("codigo");
+					String username = rs.getString("username");
+					String fechaRegistro = rs.getString("fechaRegistro");
+					String area = rs.getString("area");
+					String actividad = rs.getString("actividad");
+					
+					ListarRegistros registro = new ListarRegistros(codigo, username, fechaRegistro, area, actividad);
+					registrolist.add(registro);
+					
+					//Impresion para depuracion
+					System.out.println("Regsitro: " + codigo + ", " + username + ", " + fechaRegistro + ", " + area + ", " + actividad);
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL Exception: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;
+		}
+		return registrolist;
+	}
+	
+	public List<ListarRegistros> listAllRegistros() throws SQLException{
+		List<ListarRegistros> registrolist = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = Conexion.getConnection();
+			ps = conn.prepareStatement(LISTAR_REGISTROS);
+			rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				int codigo = rs.getInt("codigo");
+				String username = rs.getString("username");
+				String fechaRegistro = rs.getString("fechaRegistro");
+				String area = rs.getString("area");
+				String actividad = rs.getString("actividad");
+				
+				ListarRegistros registro = new ListarRegistros(codigo, username, fechaRegistro, area, actividad);
+				registrolist.add(registro);
+				
+				//Impresion para depuracion
+				System.out.println("Regsitro: " + codigo + ", " + username + ", " + fechaRegistro + ", " + area + ", " + actividad);
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL Exception: " + e.getMessage());
+	        e.printStackTrace();
+	        throw e;
+	}finally {
+        // Cerrar recursos en el orden inverso al de apertura
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar ResultSet: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        if (ps != null) {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar PreparedStatement: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar Connection: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+    return registrolist;
+}
+		
 	public void insertarRegistro(T_RegistroInformes tregistros) throws SQLException{
 		Connection conn = null;
 		PreparedStatement ps = null;

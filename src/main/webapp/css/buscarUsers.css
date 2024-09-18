@@ -1,4 +1,4 @@
-.Persona1{
+.Persona1 {
     height: auto;
     width: 1300px;
     text-align: center;
@@ -15,13 +15,13 @@
 
 .buscar {
     display: flex;
-    flex-wrap: wrap; /* Alinea el contenido del div verticalmente */
-    justify-content: center; /* Centra el contenido del div horizontalmente */
-    align-items: center; /* Centra el contenido del div verticalmente */
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
-.buscar input{
+.buscar input {
     width: 250px;
     display: flex;
     justify-content: center;
@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 
-.buscar button{
+.buscar button {
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -39,30 +39,28 @@
     margin: 0 10px;
     background-color: #ec7f00;
     color: white;
-    padding: 10px 20px;
 }
 
-.buscar button:hover{
-    background-color:#3c5100;
+.buscar button:hover {
+    background-color: #3c5100;
     color: black;
 }
 
 table {
     align-items: center;
     width: 100%;
-    border-collapse: separate; /* Asegúrate de que los bordes no estén colapsados */
-    border-spacing: 0; /* Elimina el espacio entre celdas */
-    border-radius: 5px; /* Ajusta el valor según sea necesario */
-    overflow: hidden; /* Para que el contenido no se desborde del radio del borde */
-    border-style: 1px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 1px;
 }
 
 th, td {
-    padding: 1px;
+    padding: 8px;
     text-align: center;
-    border: .5px solid #000000; /* Opcional: define un borde para las celdas */
-    padding: 8px; /* Opcional: agrega espacio dentro de las celdas */
-    border-style: 1px;
+    border: 0.5px solid #000000;
 }
 
 th {
@@ -70,12 +68,12 @@ th {
     color: white;
 }
 
-td{
+td {
     background-color: white;
     color: black;
 }
 
-.table{
+.table {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,14 +96,22 @@ td{
     background-color: #f44336;
 }
 
-.delete-btn, .edit-btn{
+.pdf-btn {
+    background-color: #ec7f00;
+}
+
+.delete-btn, .edit-btn, .pdf-btn {
     border-radius: 4px;
 }
 
-.edit-btn:hover{
+.edit-btn:hover {
     background-color: #3c5100;
 }
 
-.delete-btn:hover{
+.delete-btn:hover {
     background-color: #ba0c00;
+}
+
+.pdf-btn:hover {
+    background-color: #975300;
 }
