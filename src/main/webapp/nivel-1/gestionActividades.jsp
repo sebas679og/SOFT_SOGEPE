@@ -46,13 +46,5 @@
                 </nav>
             </div>
         </div>
-        
-        <script>
-		    function confirmarEliminacion(idInventario) {
-		        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-		            window.location.href = '${pageContext.request.contextPath}/eliminarRegistro?codigo=' + encodeURIComponent(codigo);
-		        }
-		    }
-	</script>
     </body>
 </html>

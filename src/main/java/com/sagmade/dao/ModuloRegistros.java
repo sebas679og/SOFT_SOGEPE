@@ -45,6 +45,19 @@ public class ModuloRegistros {
 			+ "JOIN actividades ac ON ac.idActividades = r.actividad "
 			+ "WHERE r.idRegistro = ?");
 	
+	private static final String ELIMINAR_REGISTRO = ("DELETE FROM registro_informes WHERE idRegistro = ?");
+	
+	public void eliminarReporte(int codigo) throws SQLException{
+		try (Connection conn = Conexion.getConnection();
+				PreparedStatement ps = conn.prepareStatement(ELIMINAR_REGISTRO)){
+			ps.setInt(1, codigo);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
 	public List<ListarRegistros> listarRegistrosPorCodigo (int codigoRegistro) throws SQLException {
 		List<ListarRegistros> registrolist = new ArrayList<>();
 		

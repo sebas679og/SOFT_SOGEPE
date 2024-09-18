@@ -17,7 +17,7 @@ import com.sagmade.model.ListarRegistros;
 import com.sagmade.model.T_Actividades;
 import com.sagmade.model.T_RegistroInformes;
 
-@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades", "/insertarRegistro", "/buscarRegistros"})
+@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades", "/insertarRegistro", "/buscarRegistros", "/eliminarRegistro"})
 @MultipartConfig
 public class ServletRegistrosA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,11 +47,34 @@ public class ServletRegistrosA extends HttpServlet {
 			 case "/buscarRegistros":
 				 buscarRegistros(request, response);
 				 break;
+			 case "/eliminarRegistro":
+				 eliminarRegistro(request, response);
+			 break;
 			 default:
 				 request.setAttribute("errorMessage", "Error de direccionamiento");
 		            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	            break;
 		 }
+	}
+	
+	private void eliminarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int codigo = Integer.parseInt(request.getParameter("codigo"));
+		
+		ModuloRegistros moduloRegistro = new ModuloRegistros();
+		
+		try {
+			moduloRegistro.eliminarReporte(codigo);
+			response.sendRedirect("buscarRegistros");
+		} catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Error al eliminar reporte: " + e.getMessage());
+
+	        // Usa `forward` si no se ha comprometido la respuesta y hay un error.
+	        if (!response.isCommitted()) {
+	            request.setAttribute("errorMessage", "Error al eliminar Reporte.");
+	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	        }
+	    }
 	}
 	
 	private void buscarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

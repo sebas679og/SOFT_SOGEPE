@@ -76,5 +76,13 @@
             </table>
         </div>
     </div>
+    
+    <script>
+	    function confirmarEliminacion(codigo) {
+	        if (confirm('¿Estás seguro de que deseas eliminar este reporte?')) {
+	            window.location.href = '${pageContext.request.contextPath}/eliminarRegistro?codigo=' + encodeURIComponent(codigo);
+	        }
+	    }
+	</script>
 </body>
 </html>
