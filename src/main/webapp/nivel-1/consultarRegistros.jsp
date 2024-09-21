@@ -59,9 +59,9 @@
 			                        <td>${registro.area}</td>
 			                        <td>${registro.actividad}</td>
 			                        <td>
-			                            <button class="action-btn edit-btn">Actualizar</button>
+			                            <button class="action-btn edit-btn" onclick="window.location.href='${pageContext.request.contextPath}/nivel-1/actualizarRegistro.jsp?codigoRegistro=${registro.codigo}'">Actualizar</button>
 			                            <button class="action-btn delete-btn" onclick="confirmarEliminacion(${registro.codigo})">Eliminar</button>
-			                            <button class="action-btn pdf-btn">visualizar Informe</button>
+			                            <button class="action-btn pdf-btn">Visualizar Informe</button>
 			                        </td>
                     			</tr>
                 			</c:forEach>

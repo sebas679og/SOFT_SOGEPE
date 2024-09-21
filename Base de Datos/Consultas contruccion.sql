@@ -133,9 +133,19 @@ SELECT r.idRegistro AS codigo,
        u.username AS username, 
        r.fechaRegistro AS fechaRegistro, 
        a.area AS area,
-       ac.actividad as actividad
+       ac.actividad as actividad,
+       r.descripcion AS descripcion, 
+       r.observacion AS observacion
 FROM Registro_Informes r
 JOIN Usuarios u ON u.idUsuarios = r.usuario  
 JOIN Areas a ON a.idArea = r.areaTrabajo
 JOIN actividades ac ON ac.idActividades = r.actividad
-WHERE r.idRegistro = 2;
+WHERE r.idRegistro = 1;
+
+SELECT i.idInventario AS id_inventario, 
+	i.fechaIngreso AS fecha_ingreso, 
+    p.producto AS producto, 
+    i.cantidad AS cantidad 
+FROM inventario i
+JOIN productos p ON i.producto = p.idProductos;
+                             

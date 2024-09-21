@@ -22,7 +22,7 @@
         List<T_Productos> listaProductos = moduloInventario.obtenerProductos();
         
         // Obtener el ID del inventario desde la solicitud
-        String idInventario = request.getParameter("id"); // Suponiendo que pasas el ID del inventario como parámetro
+        String idInventario = request.getParameter("id"); 
         
         // Variables para almacenar los datos del inventario
         String fechaIngreso = "";
