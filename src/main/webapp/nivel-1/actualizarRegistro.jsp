@@ -189,7 +189,7 @@
                 <img src="../img/volver.png" alt="regresar" height="40px">
             </a>
         </div>
-        <form action="">
+        <form action="${pageContext.request.contextPath}/actualizarReporte" method="POST">
             <div class="form-grid-r">
                 <input type="hidden" name="codigoRegistro" id="codigoRegistro" value="<%= codigoRegistro %>">
                 <div class="frm">

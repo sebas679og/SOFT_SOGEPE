@@ -17,7 +17,7 @@ import com.sagmade.model.ListarRegistros;
 import com.sagmade.model.T_Actividades;
 import com.sagmade.model.T_RegistroInformes;
 
-@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades", "/insertarRegistro", "/buscarRegistros", "/eliminarRegistro"})
+@WebServlet(urlPatterns = {"/ServletRegistrosA", "/listarActividades", "/insertarRegistro", "/buscarRegistros", "/eliminarRegistro", "/actualizarReporte"})
 @MultipartConfig
 public class ServletRegistrosA extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -50,6 +50,9 @@ public class ServletRegistrosA extends HttpServlet {
 			 case "/eliminarRegistro":
 				 eliminarRegistro(request, response);
 			 break;
+			 case "/actualizarReporte":
+				 actualizarRegistro(request, response);
+				 break;
 			 default:
 				 request.setAttribute("errorMessage", "Error de direccionamiento");
 		            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
@@ -57,63 +60,97 @@ public class ServletRegistrosA extends HttpServlet {
 		 }
 	}
 	
+	private void actualizarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	    int idRegistro = Integer.parseInt(request.getParameter("codigoRegistro"));
+	    int usuario = Integer.parseInt(request.getParameter("username"));
+	    int areaTrabajo = Integer.parseInt(request.getParameter("area"));
+	    int actividad = Integer.parseInt(request.getParameter("actividad"));
+	    String fechaRegistro = request.getParameter("fechaRegistro");
+	    String descripcion = request.getParameter("descripcion");
+	    String observacion = request.getParameter("observacion");
+
+	    T_RegistroInformes tRegistros = new T_RegistroInformes(idRegistro, usuario, areaTrabajo, actividad, fechaRegistro, descripcion, observacion);
+	    
+	    ModuloRegistros moduloRegistros = new ModuloRegistros();
+	    
+	    try {
+	        moduloRegistros.actualizarRegistro(tRegistros);
+	        // Redirigir solo si la respuesta no ha sido comprometida
+	        if (!response.isCommitted()) {
+	            response.sendRedirect("buscarRegistros");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Error al cargar datos: " + e.getMessage());
+
+	        if (!response.isCommitted()) {
+	            request.setAttribute("errorMessage", "Error al actualizar Reporte.");
+	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	        }
+	    }
+	}
+
+	
 	private void eliminarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		int codigo = Integer.parseInt(request.getParameter("codigo"));
-		
-		ModuloRegistros moduloRegistro = new ModuloRegistros();
-		
-		try {
-			moduloRegistro.eliminarReporte(codigo);
-			response.sendRedirect("buscarRegistros");
-		} catch (Exception e) {
+	    int codigo = Integer.parseInt(request.getParameter("codigo"));
+
+	    ModuloRegistros moduloRegistro = new ModuloRegistros();
+	    
+	    try {
+	        moduloRegistro.eliminarReporte(codigo);
+	        if (!response.isCommitted()) {
+	            response.sendRedirect("buscarRegistros");
+	        }
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	        System.out.println("Error al eliminar reporte: " + e.getMessage());
 
-	        // Usa `forward` si no se ha comprometido la respuesta y hay un error.
 	        if (!response.isCommitted()) {
 	            request.setAttribute("errorMessage", "Error al eliminar Reporte.");
 	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
 	        }
 	    }
 	}
+
 	
-	private void buscarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String codigoRegistroStr = request.getParameter("search");
-		int codigoRegistro = 0;
-		
-		if (codigoRegistroStr != null && !codigoRegistroStr.trim().isEmpty()) {
-			try {
-				codigoRegistro = Integer.parseInt(codigoRegistroStr);
-			} catch (NumberFormatException e) {
-				request.setAttribute("errorMessage", "El número de identificación debe ser un número.");
-	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
+	private void buscarRegistros(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String codigoRegistroStr = request.getParameter("search");
+	    int codigoRegistro = 0;
+
+	    if (codigoRegistroStr != null && !codigoRegistroStr.trim().isEmpty()) {
+	        try {
+	            codigoRegistro = Integer.parseInt(codigoRegistroStr);
+	        } catch (NumberFormatException e) {
+	            request.setAttribute("errorMessage", "El número de identificación debe ser un número.");
+	            if (!response.isCommitted()) {
+	                request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	            }
 	            return;
-			}
-		}
-		
-		ModuloRegistros moduloRegistro = new ModuloRegistros();
-		try {
-			List<ListarRegistros> registrolist;
-			// Si 'numeroIdentificacion' es mayor que 0, busca por número de identificación
-			if (codigoRegistro > 0) {
-				registrolist = moduloRegistro.listarRegistrosPorCodigo(codigoRegistro);
-			} else {
-				registrolist = moduloRegistro.listAllRegistros();
-			}
-			
-			// Establecer la lista de usuarios como atributo en la solicitud
+	        }
+	    }
+
+	    ModuloRegistros moduloRegistro = new ModuloRegistros();
+	    try {
+	        List<ListarRegistros> registrolist;
+	        if (codigoRegistro > 0) {
+	            registrolist = moduloRegistro.listarRegistrosPorCodigo(codigoRegistro);
+	        } else {
+	            registrolist = moduloRegistro.listAllRegistros();
+	        }
+
 	        request.setAttribute("registrolist", registrolist);
-	        
-	        // Reenviar la solicitud a la página de lista de usuarios
-	      request.getRequestDispatcher("/nivel-1/consultarRegistros.jsp").forward(request, response);
-	        
-		} catch (SQLException e) {
-			e.printStackTrace();
-	        // En caso de error, establece un mensaje de error y reenvía a la página de error
+	        if (!response.isCommitted()) {
+	            request.getRequestDispatcher("/nivel-1/consultarRegistros.jsp").forward(request, response);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
 	        request.setAttribute("errorMessage", "Error al recuperar Registros. Por favor, intente nuevamente.");
-	        request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
-		}
+	        if (!response.isCommitted()) {
+	            request.getRequestDispatcher("/nivel-1/errorPage.jsp").forward(request, response);
+	        }
+	    }
 	}
+
 	
 	private void insertarRegistro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		//Recuperar Datos del Formulario

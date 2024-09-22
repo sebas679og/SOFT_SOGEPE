@@ -74,7 +74,6 @@ public class ModuloInventario {
 			
 			conn.commit();
 			System.out.println("Datos actualizados exitosamente en tabla Inventario.");
-			System.out.println("Datos actualizados exitosamente en tabla Inventario.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

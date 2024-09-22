@@ -47,6 +47,44 @@ public class ModuloRegistros {
 	
 	private static final String ELIMINAR_REGISTRO = ("DELETE FROM registro_informes WHERE idRegistro = ?");
 	
+	private static final String ACTUALIZAR_REPORTE = ("UPDATE registro_informes SET usuario = ?, areaTrabajo = ?, actividad = ?, fechaRegistro = ?, descripcion = ?, observacion = ? WHERE idRegistro = ?");
+	
+	public void actualizarRegistro(T_RegistroInformes tRegistros) throws SQLException{
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			conn = Conexion.getConnection();
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(ACTUALIZAR_REPORTE);
+			ps.setInt(1, tRegistros.getUsuario());
+			ps.setInt(2, tRegistros.getAreaTrabajo());
+			ps.setInt(3, tRegistros.getActividad());
+			ps.setString(4, tRegistros.getFechaRegistro());
+			ps.setString(5, tRegistros.getDescripcion());
+			ps.setString(6, tRegistros.getObservacion());
+			ps.setInt(7, tRegistros.getIdRegistro());
+			ps.executeUpdate();
+			
+			conn.commit();
+			System.out.println("Registro Actualizado Correctamente");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}finally {
+			
+			try {
+				if (ps != null) ps.close();
+				if (conn != null) conn.setAutoCommit(true); // Reactivar el autocommit
+			} catch (SQLException closeEx) {
+				closeEx.printStackTrace();
+				System.out.println(closeEx.getMessage());
+			}
+			
+		}
+	}
+	
 	public void eliminarReporte(int codigo) throws SQLException{
 		try (Connection conn = Conexion.getConnection();
 				PreparedStatement ps = conn.prepareStatement(ELIMINAR_REGISTRO)){
